@@ -1,11 +1,1356 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linha do tempo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo SENAI 2026 - A Evolução do Trabalho (Turma: EMIIPT2AM)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Playfair Display, Cinzel, Inter, Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Custom Tailwind Color Palette derived from Dark Vintage & Industrial Cafe aesthetics -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vintageDark: '#141513',
+            vintageCharcoal: '#1c1d1a',
+            vintageCard: '#232621',
+            vintageCardHover: '#2d322b',
+            vintageBorder: '#3e473b',
+            vintageOlive: '#2b3327',
+            vintageOliveLight: '#3a4534',
+            vintageRust: '#8b2626',
+            vintageRustBright: '#a83232',
+            vintageSand: '#d2c5a5',
+            vintageCream: '#e8dfc8',
+            vintageGold: '#c89b3c',
+            senaiBlue: '#00539C',
+            senaiRed: '#E30613'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Global Image Error Fallback Handler (Defined in head for inline onerror handlers) -->
+  <script>
+    function handleImgError(imgElement, title) {
+      imgElement.onerror = null;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <rect width="800" height="600" fill="#1c1d1a"/>
+        <rect x="25" y="25" width="750" height="550" rx="12" fill="#232621" stroke="#c89b3c" stroke-width="4"/>
+        <rect x="45" y="45" width="710" height="510" rx="8" fill="#2b3327" stroke="#3e473b" stroke-width="2"/>
+        <circle cx="400" cy="240" r="75" fill="#8b2626" stroke="#c89b3c" stroke-width="3"/>
+        <text x="400" y="260" font-family="sans-serif" font-size="52" fill="#e8dfc8" text-anchor="middle">⚙️</text>
+        <text x="400" y="380" font-family="Georgia, serif" font-size="40" fill="#c89b3c" font-weight="bold" text-anchor="middle">${title || 'Modelo de Produção'}</text>
+        <text x="400" y="430" font-family="Arial, sans-serif" font-size="18" fill="#d2c5a5" text-anchor="middle">Mundo SENAI 2026 — EMIIPT2AM</text>
+      </svg>`;
+      imgElement.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #141513;
+      color: #e8dfc8;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #141513;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3e473b;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8b2626;
+    }
+
+    /* Image Vintage Sepia Overlay */
+    .sepia-overlay {
+      position: relative;
+    }
+    .sepia-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(20, 21, 19, 0.15) 0%, rgba(20, 21, 19, 0.85) 100%),
+                  radial-gradient(circle, rgba(200, 155, 60, 0.08) 0%, rgba(139, 38, 38, 0.15) 100%);
+      pointer-events: none;
+    }
+
+    /* Conveyor Belt Animation */
+    @keyframes beltMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 0; }
+    }
+    .conveyor-belt-anim {
+      background: repeating-linear-gradient(90deg, #2b3327, #2b3327 25px, #1c1d1a 25px, #1c1d1a 50px);
+      animation: beltMove 1.8s linear infinite;
+    }
+    .conveyor-belt-paused {
+      animation-play-state: paused;
+    }
+
+    /* Badge & Frame Styling */
+    .senai-badge {
+      background: linear-gradient(135deg, #1c1d1a 0%, #2b3327 100%);
+      border: 1px solid #c89b3c;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+  </style>
 </head>
-<body>
+<body class="selection:bg-vintageRust selection:text-vintageCream">
+
+  <!-- ================= HEADER & NAVIGATION ================= -->
+  <header class="sticky top-0 z-50 bg-vintageDark/95 backdrop-blur-md border-b border-vintageBorder shadow-2xl transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- SENAI Brand & Group Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-lg border-2 border-vintageGold bg-vintageOlive flex flex-col items-center justify-center text-vintageGold group-hover:bg-vintageRust group-hover:text-vintageCream transition-all duration-300 shadow-lg">
+          <span class="font-black text-xs tracking-tighter leading-none">SENAI</span>
+          <span class="text-[8px] font-bold text-vintageGold group-hover:text-vintageCream">2026</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-cinzel text-base sm:text-lg font-bold tracking-wider text-vintageCream block leading-none">MUNDO SENAI - 2026</span>
+            <span class="px-2 py-0.5 bg-vintageRust text-vintageCream text-[9px] font-bold rounded uppercase tracking-wider">EMIIPT2AM</span>
+          </div>
+          <span class="text-[10px] text-vintageGold tracking-widest uppercase font-semibold">Linha do Tempo dos Modelos de Produção</span>
+        </div>
+      </a>
+
+      <!-- Navigation Bar -->
+      <nav class="hidden lg:flex items-center space-x-1 text-xs font-semibold uppercase tracking-wider">
+        <a href="#taylorismo" class="px-3 py-2 rounded text-vintageSand hover:text-vintageCream hover:bg-vintageOlive transition">Taylorismo</a>
+        <a href="#fordismo" class="px-3 py-2 rounded text-vintageSand hover:text-vintageCream hover:bg-vintageOlive transition">Fordismo</a>
+        <a href="#toyotismo" class="px-3 py-2 rounded text-vintageSand hover:text-vintageCream hover:bg-vintageOlive transition">Toyotismo</a>
+        <a href="#uberizacao" class="px-3 py-2 rounded text-vintageSand hover:text-vintageCream hover:bg-vintageOlive transition">Uberização</a>
+        <a href="#comparador" class="px-3 py-2 rounded border border-vintageGold/50 text-vintageGold hover:bg-vintageGold/10 transition">Comparador</a>
+        <a href="#simulador" class="px-3 py-2 rounded border border-vintageBorder text-vintageCream hover:bg-vintageOlive transition">Simulador</a>
+        <a href="#quiz" class="px-3 py-2 rounded bg-vintageRust text-vintageCream hover:bg-vintageRustBright transition shadow">Quiz SENAI</a>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="mobileMenuBtn" class="lg:hidden text-vintageCream text-2xl focus:outline-none p-2" aria-label="Abrir Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-vintageCharcoal border-b border-vintageBorder px-4 pt-2 pb-6 space-y-2 text-center text-sm">
+      <div class="py-2 border-b border-vintageBorder/40">
+        <span class="text-xs text-vintageGold font-bold block">Mundo SENAI 2026 — Turma: EMIIPT2AM</span>
+      </div>
+      <a href="#taylorismo" class="mobile-nav-link block py-2 border-b border-vintageBorder/40 text-vintageSand">1890 | Taylorismo</a>
+      <a href="#fordismo" class="mobile-nav-link block py-2 border-b border-vintageBorder/40 text-vintageSand">1910 | Fordismo</a>
+      <a href="#toyotismo" class="mobile-nav-link block py-2 border-b border-vintageBorder/40 text-vintageSand">1970 | Toyotismo</a>
+      <a href="#uberizacao" class="mobile-nav-link block py-2 border-b border-vintageBorder/40 text-vintageSand">Hoje | Uberização</a>
+      <a href="#comparador" class="mobile-nav-link block py-2 text-vintageGold font-bold">Comparador de Modelos</a>
+      <a href="#simulador" class="mobile-nav-link block py-2 text-vintageCream">Simulador de Produção</a>
+      <a href="#quiz" class="mobile-nav-link block py-2 bg-vintageRust text-vintageCream rounded font-bold mt-2">Quiz Interativo SENAI</a>
+    </div>
+  </header>
+
+
+  <!-- ================= HERO BANNER WITH PROMINENT GROUP IDENTIFICATION ================= -->
+  <section class="relative min-h-[85vh] flex items-center justify-center py-20 px-4 border-b border-vintageBorder overflow-hidden">
+    <!-- Subtle Industrial Background Pattern -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#c89b3c_1px,transparent_1px)] [background-size:32px_32px]"></div>
     
+    <div class="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+      
+      <!-- SENAI Project Badge Banner -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-3 px-5 py-2.5 rounded-full senai-badge text-xs sm:text-sm shadow-2xl">
+        <span class="flex items-center gap-2 text-vintageGold font-bold tracking-widest uppercase">
+          <i class="fa-solid fa-graduation-cap text-vintageRustBright text-base"></i> MUNDO SENAI - 2026
+        </span>
+        <span class="text-vintageBorder">|</span>
+        <span class="text-vintageCream font-semibold tracking-wider">TURMA: <strong class="text-vintageGold font-mono">EMIIPT2AM</strong></span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-vintageCream tracking-tight leading-tight">
+        A Evolução dos Modelos de Produção
+        <span class="font-cinzel text-vintageGold italic font-normal text-2xl sm:text-4xl md:text-5xl block mt-3">
+          Taylorismo, Fordismo, Toyotismo e Uberização
+        </span>
+      </h1>
+
+      <!-- Subtitle Description -->
+      <p class="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-vintageSand leading-relaxed font-light">
+        Uma jornada interativa pela história da organização do trabalho humano. Conheça a transição do cronômetro da Revolução Industrial até os algoritmos de gestão da era digital contemporânea.
+      </p>
+
+      <!-- Main Action Buttons -->
+      <div class="pt-6 flex flex-wrap items-center justify-center gap-4">
+        <a href="#timeline-nav" class="px-8 py-3.5 rounded bg-vintageRust text-vintageCream font-semibold hover:bg-vintageRustBright transition-all duration-300 shadow-xl flex items-center gap-2 group">
+          <span>Explorar Linha do Tempo</span>
+          <i class="fa-solid fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+        </a>
+        <a href="#comparador" class="px-8 py-3.5 rounded border border-vintageGold text-vintageGold hover:bg-vintageGold/10 font-semibold transition-all duration-300 flex items-center gap-2">
+          <i class="fa-solid fa-code-compare"></i>
+          <span>Modo Comparativo Lado a Lado</span>
+        </a>
+      </div>
+
+      <!-- Hero Summary Ribbon -->
+      <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border-t border-vintageBorder/60 mt-12">
+        <div class="p-3 text-center border-r border-vintageBorder/40 last:border-r-0">
+          <span class="block text-2xl md:text-3xl font-cinzel font-bold text-vintageGold">1890s</span>
+          <span class="text-[11px] text-vintageSand uppercase font-medium">Taylorismo</span>
+        </div>
+        <div class="p-3 text-center border-r border-vintageBorder/40 last:border-r-0">
+          <span class="block text-2xl md:text-3xl font-cinzel font-bold text-vintageGold">1910s</span>
+          <span class="text-[11px] text-vintageSand uppercase font-medium">Fordismo</span>
+        </div>
+        <div class="p-3 text-center border-r border-vintageBorder/40 last:border-r-0">
+          <span class="block text-2xl md:text-3xl font-cinzel font-bold text-vintageGold">1970s</span>
+          <span class="text-[11px] text-vintageSand uppercase font-medium">Toyotismo</span>
+        </div>
+        <div class="p-3 text-center">
+          <span class="block text-2xl md:text-3xl font-cinzel font-bold text-vintageRustBright">Hoje</span>
+          <span class="text-[11px] text-vintageSand uppercase font-medium">Uberização</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= TIMELINE INTERACTIVE NAVIGATION ================= -->
+  <section id="timeline-nav" class="sticky top-20 z-40 bg-vintageCharcoal/95 backdrop-blur border-b border-vintageBorder py-4 px-4 shadow-2xl">
+    <div class="max-w-6xl mx-auto">
+      <div class="relative flex items-center justify-between">
+        
+        <!-- Track Bar -->
+        <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-vintageBorder -z-10"></div>
+        <div id="timelineProgress" class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-vintageGold transition-all duration-500 -z-10" style="width: 0%;"></div>
+
+        <!-- Node 1: Taylorismo -->
+        <button onclick="scrollToModel('taylorismo', 0)" class="timeline-node flex flex-col items-center group focus:outline-none" data-index="0">
+          <div class="node-circle w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-vintageDark border-2 border-vintageGold text-vintageGold flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-all shadow-md">
+            <i class="fa-solid fa-stopwatch"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-cinzel font-semibold mt-2 text-vintageCream group-hover:text-vintageGold">Taylorismo</span>
+          <span class="text-[9px] text-vintageSand hidden sm:block">1890 – 1910</span>
+        </button>
+
+        <!-- Node 2: Fordismo -->
+        <button onclick="scrollToModel('fordismo', 33)" class="timeline-node flex flex-col items-center group focus:outline-none" data-index="1">
+          <div class="node-circle w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-vintageDark border-2 border-vintageBorder text-vintageSand flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-all shadow-md">
+            <i class="fa-solid fa-industry"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-cinzel font-semibold mt-2 text-vintageSand group-hover:text-vintageGold">Fordismo</span>
+          <span class="text-[9px] text-vintageSand hidden sm:block">1910 – 1970</span>
+        </button>
+
+        <!-- Node 3: Toyotismo -->
+        <button onclick="scrollToModel('toyotismo', 66)" class="timeline-node flex flex-col items-center group focus:outline-none" data-index="2">
+          <div class="node-circle w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-vintageDark border-2 border-vintageBorder text-vintageSand flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-all shadow-md">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-cinzel font-semibold mt-2 text-vintageSand group-hover:text-vintageGold">Toyotismo</span>
+          <span class="text-[9px] text-vintageSand hidden sm:block">1970 – 2000s</span>
+        </button>
+
+        <!-- Node 4: Uberização -->
+        <button onclick="scrollToModel('uberizacao', 100)" class="timeline-node flex flex-col items-center group focus:outline-none" data-index="3">
+          <div class="node-circle w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-vintageDark border-2 border-vintageBorder text-vintageSand flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-all shadow-md">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-cinzel font-semibold mt-2 text-vintageSand group-hover:text-vintageRustBright">Uberização</span>
+          <span class="text-[9px] text-vintageSand hidden sm:block">Século XXI</span>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= MAIN CONTENT: DETAILED SECTIONS ================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-28">
+
+    <!-- ---------------- 1. TAYLORISMO ---------------- -->
+    <section id="taylorismo" class="model-section scroll-mt-36">
+      
+      <div class="bg-vintageCard rounded-2xl border border-vintageBorder overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- Image Container (P&B Oficina Fabril) -->
+          <div class="lg:col-span-5 relative sepia-overlay min-h-[300px] lg:min-h-full group cursor-pointer overflow-hidden" onclick="openModal('taylorismo')">
+            <img 
+              src="images.jpeg" 
+              alt="Taylorismo - Oficina fabril e montagem inicial manual" 
+              class="w-full h-full object-cover grayscale brightness-90 group-hover:scale-105 transition-transform duration-500"
+              onerror="handleImgError(this, 'Taylorismo')"
+            />
+            <div class="absolute top-4 left-4 z-10">
+              <span class="px-3 py-1 bg-vintageDark/90 border border-vintageGold text-vintageGold text-[10px] font-cinzel font-bold uppercase tracking-widest rounded shadow">
+                1890 – 1910
+              </span>
+            </div>
+            <div class="absolute inset-0 bg-vintageDark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+              <span class="px-4 py-2 bg-vintageGold text-vintageDark font-bold text-xs rounded-full shadow-lg">
+                <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Imagem
+              </span>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 z-10 text-xs text-vintageSand italic font-serif">
+              "No passado o homem esteve em primeiro lugar; no futuro o sistema deve estar em primeiro lugar." — F. W. Taylor
+            </div>
+          </div>
+
+          <!-- Description & Details -->
+          <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center gap-2 text-vintageGold text-xs font-cinzel tracking-widest uppercase mb-1">
+                <i class="fa-solid fa-stopwatch"></i> Administração Científica do Trabalho
+              </div>
+              <h2 class="font-serif text-3xl sm:text-4xl font-bold text-vintageCream mb-3">TAYLORISMO</h2>
+              <p class="text-sm text-vintageSand leading-relaxed mb-6">
+                Surgido no final do século XIX por iniciativa do engenheiro norte-americano Frederick Winslow Taylor, o <strong>Taylorismo</strong> revolucionou o ambiente fabril ao introduzir a aplicação de métodos científicos na organização do trabalho.
+              </p>
+
+              <!-- Main Pillars Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-clock text-vintageGold mr-1.5"></i> Estudo de Tempos e Movimentos</strong>
+                  <span>Cronometragem detalhada de cada gesto operacional para eliminar gestos desnecessários e fadiga.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-brain text-vintageGold mr-1.5"></i> Divisão Cognitiva do Trabalho</strong>
+                  <span>Separação total entre a gerência (que planeja e pensa) e os operários (que apenas executam).</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-sliders text-vintageGold mr-1.5"></i> Padronização de Ferramentas</strong>
+                  <span>Criação de ferramentas e procedimentos uniformes para garantir o mesmo rendimento de todos.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-award text-vintageGold mr-1.5"></i> Prêmios por Produtividade</strong>
+                  <span>Incentivos financeiros para quem superasse as metas de produção individuais estabelecidas.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Card Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-vintageBorder/60">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Racionalização</span>
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Supervisão Rígida</span>
+              </div>
+              <button onclick="openModal('taylorismo')" class="px-4 py-2 bg-vintageGold text-vintageDark font-bold rounded text-xs hover:bg-amber-400 transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-book-open"></i> Ver Análise Completa
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------- 2. FORDISMO ---------------- -->
+    <section id="fordismo" class="model-section scroll-mt-36">
+      
+      <div class="bg-vintageCard rounded-2xl border border-vintageBorder overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- Image Container (Linha de Montagem Ford Model T) -->
+          <div class="lg:col-span-5 relative sepia-overlay min-h-[300px] lg:min-h-full group cursor-pointer overflow-hidden" onclick="openModal('fordismo')">
+            <img 
+              src="fordismo-o-que-e-como-surgiu-e-quais-sao-as-caracteristicas-1-1200x720.jpg" 
+              alt="Fordismo - Linha de montagem contínua do Ford Model T em Highland Park" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="handleImgError(this, 'Fordismo')"
+            />
+            <div class="absolute top-4 left-4 z-10">
+              <span class="px-3 py-1 bg-vintageDark/90 border border-vintageGold text-vintageGold text-[10px] font-cinzel font-bold uppercase tracking-widest rounded shadow">
+                1910 – 1970
+              </span>
+            </div>
+            <div class="absolute inset-0 bg-vintageDark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+              <span class="px-4 py-2 bg-vintageGold text-vintageDark font-bold text-xs rounded-full shadow-lg">
+                <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Imagem
+              </span>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 z-10 text-xs text-vintageSand italic font-serif">
+              "O cliente pode ter o carro da cor que quiser, contanto que seja preto." — Henry Ford
+            </div>
+          </div>
+
+          <!-- Description & Details -->
+          <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center gap-2 text-vintageGold text-xs font-cinzel tracking-widest uppercase mb-1">
+                <i class="fa-solid fa-industry"></i> Produção em Massa e Linha de Montagem
+              </div>
+              <h2 class="font-serif text-3xl sm:text-4xl font-bold text-vintageCream mb-3">FORDISMO</h2>
+              <p class="text-sm text-vintageSand leading-relaxed mb-6">
+                Idealizado por Henry Ford na fábrica de Highland Park em 1913, o <strong>Fordismo</strong> acelerou a lógica de Taylor ao introduzir a <strong>esteira rolante mecanizada</strong>. As peças se moviam até os operários estáticos, padronizando a produção automobilística em grande escala.
+              </p>
+
+              <!-- Main Pillars Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-route text-vintageGold mr-1.5"></i> Esteira Rolante Mecânica</strong>
+                  <span>Submissão do ritmo de trabalho humano à velocidade programada do maquinário da fábrica.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-cubes text-vintageGold mr-1.5"></i> Bens Homogêneos em Massa</strong>
+                  <span>Produção estpadronizada em larga escala (ex: Ford Modelo T exclusivamente preto).</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-money-bill-wave text-vintageGold mr-1.5"></i> Política dos 5 Dólares/Dia</strong>
+                  <span>Aumento salarial para transformar operários em consumidores dos produtos fabricados.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-warehouse text-vintageGold mr-1.5"></i> Grandes Estoques Reguladores</strong>
+                  <span>Manutenção de vastos depósitos com matérias-primas e carros prontos para absorver oscilações.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Card Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-vintageBorder/60">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Padronização</span>
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Consumo em Massa</span>
+              </div>
+              <button onclick="openModal('fordismo')" class="px-4 py-2 bg-vintageGold text-vintageDark font-bold rounded text-xs hover:bg-amber-400 transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-book-open"></i> Ver Análise Completa
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------- 3. TOYOTISMO ---------------- -->
+    <section id="toyotismo" class="model-section scroll-mt-36">
+      
+      <div class="bg-vintageCard rounded-2xl border border-vintageBorder overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- Image Container (Robôs Automotivos Laranjas) -->
+          <div class="lg:col-span-5 relative sepia-overlay min-h-[300px] lg:min-h-full group cursor-pointer overflow-hidden" onclick="openModal('toyotismo')">
+            <img 
+              src="o-que-e-toyotismo-caracteristicas-e-origem-1200x675.jpg" 
+              alt="Toyotismo - Linha automatizada com braços robóticos industriais laranjas" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="handleImgError(this, 'Toyotismo')"
+            />
+            <div class="absolute top-4 left-4 z-10">
+              <span class="px-3 py-1 bg-vintageDark/90 border border-vintageGold text-vintageGold text-[10px] font-cinzel font-bold uppercase tracking-widest rounded shadow">
+                1970 – 2000s
+              </span>
+            </div>
+            <div class="absolute inset-0 bg-vintageDark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+              <span class="px-4 py-2 bg-vintageGold text-vintageDark font-bold text-xs rounded-full shadow-lg">
+                <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Imagem
+              </span>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 z-10 text-xs text-vintageSand italic font-serif">
+              "O desperdício de tempo e matérias-primas é o maior inimigo da eficiência industrial." — Taiichi Ohno
+            </div>
+          </div>
+
+          <!-- Description & Details -->
+          <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center gap-2 text-vintageGold text-xs font-cinzel tracking-widest uppercase mb-1">
+                <i class="fa-solid fa-robot"></i> Acumulação Flexível e Robótica
+              </div>
+              <h2 class="font-serif text-3xl sm:text-4xl font-bold text-vintageCream mb-3">TOYOTISMO</h2>
+              <p class="text-sm text-vintageSand leading-relaxed mb-6">
+                Desenvolvido no Japão pós-guerra por Taiichi Ohno na Toyota, o <strong>Toyotismo</strong> rompeu com a rigidez fordista ao instituir a <strong>produção puxada pela demanda</strong> (Just-in-Time), eliminação de estoques e automação flexível.
+              </p>
+
+              <!-- Main Pillars Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-truck-fast text-vintageGold mr-1.5"></i> Sistema Just-In-Time</strong>
+                  <span>Fabricação de componentes estritamente na quantidade necessária e no momento exato de montagem.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-note-sticky text-vintageGold mr-1.5"></i> Cartões Kanban</strong>
+                  <span>Sinalização visual para gerenciar o fluxo de materiais e evitar o excesso de peças na fábrica.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-user-gear text-vintageGold mr-1.5"></i> Operário Polivalente</strong>
+                  <span>Trabalhador multifuncional que atua em equipe e opera simultaneamente diversas máquinas.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageGold block font-semibold"><i class="fa-solid fa-arrows-spin text-vintageGold mr-1.5"></i> Kaizen (Melhoria Contínua)</strong>
+                  <span>Busca incessante pela eliminação dos 'cinco zeros' (Zero defeito, zero quebra, zero estoque, zero atraso, zero burocracia).</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Card Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-vintageBorder/60">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Zero Estoque</span>
+                <span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">Flexibilidade</span>
+              </div>
+              <button onclick="openModal('toyotismo')" class="px-4 py-2 bg-vintageGold text-vintageDark font-bold rounded text-xs hover:bg-amber-400 transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-book-open"></i> Ver Análise Completa
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------- 4. UBERIZAÇÃO ---------------- -->
+    <section id="uberizacao" class="model-section scroll-mt-36">
+      
+      <div class="bg-vintageCard rounded-2xl border border-vintageRust/60 overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- Image Container (Motorista com Smartphone no Carro) -->
+          <div class="lg:col-span-5 relative sepia-overlay min-h-[300px] lg:min-h-full group cursor-pointer overflow-hidden" onclick="openModal('uberizacao')">
+            <img 
+              src="uberização-uber-aplicativo-motorista-780x470.jpg" 
+              alt="Uberização - Motorista no veículo com smartphone exibindo mapa interativo" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="handleImgError(this, 'Uberização')"
+            />
+            <div class="absolute top-4 left-4 z-10">
+              <span class="px-3 py-1 bg-vintageDark/90 border border-vintageRustBright text-vintageRustBright text-[10px] font-cinzel font-bold uppercase tracking-widest rounded shadow">
+                Século XXI (Atualidade)
+              </span>
+            </div>
+            <div class="absolute inset-0 bg-vintageDark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+              <span class="px-4 py-2 bg-vintageRust text-vintageCream font-bold text-xs rounded-full shadow-lg">
+                <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Imagem
+              </span>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 z-10 text-xs text-vintageSand italic font-serif">
+              "A promessa de autonomia profissional sob o comando silencioso de um algoritmo invisível."
+            </div>
+          </div>
+
+          <!-- Description & Details -->
+          <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center gap-2 text-vintageRustBright text-xs font-cinzel tracking-widest uppercase mb-1">
+                <i class="fa-solid fa-mobile-screen-button"></i> Plataformização e Trabalho sob Demanda
+              </div>
+              <h2 class="font-serif text-3xl sm:text-4xl font-bold text-vintageCream mb-3">UBERIZAÇÃO</h2>
+              <p class="text-sm text-vintageSand leading-relaxed mb-6">
+                A <strong>Uberização</strong> representa o modelo mais recente de organização do trabalho. Mediado por plataformas digitais e aplicativos, transforma o trabalhador em um prestador de serviços "autônomo" e transfere os meios de produção e riscos para o indivíduo.
+              </p>
+
+              <!-- Main Pillars Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageRustBright block font-semibold"><i class="fa-solid fa-network-wired text-vintageRustBright mr-1.5"></i> Gestão Algorítmica</strong>
+                  <span>Algoritmos distribuem tarefas, estipulam valores dinâmicos e avaliam continuamente os profissionais.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageRustBright block font-semibold"><i class="fa-solid fa-car-side text-vintageRustBright mr-1.5"></i> Transferência dos Meios de Produção</strong>
+                  <span>O próprio trabalhador é proprietário das suas ferramentas (veículo, telefone, combustível e manutenção).</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageDark/80 border border-vintageBorder text-xs space-y-1">
+                  <strong class="text-vintageRustBright block font-semibold"><i class="fa-solid fa-clock-rotate-left text-vintageRustBright mr-1.5"></i> Flexibilidade Flexibilizada</strong>
+                  <span>Liberdade de horários acompanhada pela necessidade de longas jornadas para atingir a meta financeira.</span>
+                </div>
+                <div class="p-3.5 rounded bg-vintageRust/20 border border-vintageRust/40 text-xs space-y-1">
+                  <strong class="text-vintageRustBright block font-semibold"><i class="fa-solid fa-shield-halved text-vintageRustBright mr-1.5"></i> Desproteção Trabalhista</strong>
+                  <span>Ausência de vínculo empregatício formal, férias remuneradas, 13º salário ou seguro contra acidentes.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Card Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-vintageBorder/60">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-vintageRust/30 text-[11px] text-vintageCream rounded border border-vintageRust/50">Gig Economy</span>
+                <span class="px-2.5 py-1 bg-vintageRust/30 text-[11px] text-vintageCream rounded border border-vintageRust/50">Plataformização</span>
+              </div>
+              <button onclick="openModal('uberizacao')" class="px-4 py-2 bg-vintageRust text-vintageCream font-bold rounded text-xs hover:bg-vintageRustBright transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-book-open"></i> Ver Análise Completa
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= COMPARATIVE SIDE-BY-SIDE INTERACTIVE TOOL ================= -->
+    <section id="comparador" class="scroll-mt-36">
+      <div class="bg-vintageCard border border-vintageGold/40 rounded-2xl p-6 sm:p-10 shadow-2xl space-y-8">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-2">
+          <span class="text-xs font-cinzel text-vintageGold uppercase tracking-widest font-bold">Ferramenta de Estudo</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-vintageCream">Comparador Lado a Lado de Modelos</h2>
+          <p class="text-xs sm:text-sm text-vintageSand">
+            Selecione dois modelos produtivos para confrontar suas diretrizes operacionais, vantagens e impactos na vida do trabalhador.
+          </p>
+        </div>
+
+        <!-- Selectors -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <div>
+            <label class="block text-xs font-bold text-vintageGold mb-1 uppercase tracking-wider">Modelo A</label>
+            <select id="selectModelA" onchange="updateComparison()" class="w-full bg-vintageDark border border-vintageBorder text-vintageCream text-xs rounded-lg p-3 focus:border-vintageGold focus:outline-none shadow-inner">
+              <option value="taylorismo">Taylorismo (1890)</option>
+              <option value="fordismo" selected>Fordismo (1910)</option>
+              <option value="toyotismo">Toyotismo (1970)</option>
+              <option value="uberizacao">Uberização (Século XXI)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-vintageGold mb-1 uppercase tracking-wider">Modelo B</label>
+            <select id="selectModelB" onchange="updateComparison()" class="w-full bg-vintageDark border border-vintageBorder text-vintageBorder text-vintageCream text-xs rounded-lg p-3 focus:border-vintageGold focus:outline-none shadow-inner">
+              <option value="taylorismo">Taylorismo (1890)</option>
+              <option value="fordismo">Fordismo (1910)</option>
+              <option value="toyotismo" selected>Toyotismo (1970)</option>
+              <option value="uberizacao">Uberização (Século XXI)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          <div id="cardModelA" class="bg-vintageDark p-6 rounded-xl border border-vintageBorder space-y-4 shadow-lg"></div>
+          <div id="cardModelB" class="bg-vintageDark p-6 rounded-xl border border-vintageBorder space-y-4 shadow-lg"></div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= SIMULADOR OPERACIONAL DE PRODUÇÃO ================= -->
+    <section id="simulador" class="scroll-mt-36">
+      <div class="bg-vintageCard border border-vintageBorder rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between border-b border-vintageBorder pb-4 gap-4">
+          <div>
+            <span class="text-xs font-cinzel text-vintageGold uppercase tracking-widest font-bold block">Laboratório Prático</span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-vintageCream">Simulador Operacional do Modelo</h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="setSimulatorTab('taylor')" id="simTabTaylor" class="sim-tab-btn px-3 py-1.5 rounded text-xs font-bold border border-vintageGold bg-vintageGold text-vintageDark">Taylorismo</button>
+            <button onclick="setSimulatorTab('ford')" id="simTabFord" class="sim-tab-btn px-3 py-1.5 rounded text-xs font-bold border border-vintageBorder text-vintageSand">Fordismo</button>
+            <button onclick="setSimulatorTab('toyota')" id="simTabToyota" class="sim-tab-btn px-3 py-1.5 rounded text-xs font-bold border border-vintageBorder text-vintageSand">Toyotismo</button>
+            <button onclick="setSimulatorTab('uber')" id="simTabUber" class="sim-tab-btn px-3 py-1.5 rounded text-xs font-bold border border-vintageBorder text-vintageSand">Uberização</button>
+          </div>
+        </div>
+
+        <!-- Active Simulator Screen -->
+        <div id="simulatorContainer" class="bg-vintageDark p-6 rounded-xl border border-vintageBorder min-h-[220px]">
+          <!-- Injected dynamically via JS -->
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= QUIZ INTERATIVO MUNDO SENAI ================= -->
+    <section id="quiz" class="scroll-mt-36 max-w-3xl mx-auto">
+      <div class="bg-vintageCard border border-vintageGold/50 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        
+        <!-- Header badge -->
+        <div class="text-center space-y-2 mb-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-vintageGold/20 text-vintageGold border border-vintageGold/40 rounded-full text-xs font-bold uppercase tracking-widest">
+            <i class="fa-solid fa-graduation-cap text-vintageRust"></i> Avaliação Mundo SENAI 2026
+          </div>
+          <h2 class="font-serif text-3xl font-bold text-vintageCream">Quiz de Conhecimento Prático</h2>
+          <p class="text-xs text-vintageSand">Turma: EMIIPT2AM — Teste seus conhecimentos sobre a linha do tempo</p>
+        </div>
+
+        <!-- Quiz Display Box -->
+        <div id="quizContainer" class="bg-vintageDark p-6 rounded-xl border border-vintageBorder space-y-6">
+          <div class="flex items-center justify-between text-xs text-vintageGold border-b border-vintageBorder pb-3">
+            <span id="quizProgressText">Questão 1 de 4</span>
+            <span id="quizScoreText" class="font-bold">Pontuação: 0</span>
+          </div>
+
+          <div id="quizQuestion" class="text-sm sm:text-base text-vintageCream font-semibold leading-relaxed">
+            Carregando questão...
+          </div>
+
+          <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+          <div id="quizFeedback" class="hidden p-4 rounded-lg text-xs leading-relaxed border"></div>
+        </div>
+
+        <!-- Next button -->
+        <div class="flex justify-end mt-4">
+          <button id="quizNextBtn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-vintageGold text-vintageDark font-bold text-xs uppercase rounded hover:bg-amber-400 transition shadow">
+            Próxima Questão <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================= HIGH-RES MODAL IMAGE VIEWER ================= -->
+  <div id="modelModal" class="fixed inset-0 z-50 hidden bg-vintageDark/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-vintageCard border-2 border-vintageGold rounded-2xl max-w-4xl w-full p-6 sm:p-8 space-y-6 relative max-h-[92vh] overflow-y-auto shadow-2xl">
+      
+      <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-vintageDark border border-vintageBorder text-vintageSand hover:text-vintageCream flex items-center justify-center text-sm z-20">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="modalContent">
+        <!-- Dynamically injected content -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= FOOTER WITH PROMINENT GROUP IDENTIFICATION ================= -->
+  <footer class="bg-vintageCharcoal border-t border-vintageBorder mt-24 py-12 text-center text-xs text-vintageSand">
+    <div class="max-w-5xl mx-auto px-4 space-y-6">
+      
+      <!-- Footer Badge Banner -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-3 px-6 py-3 rounded-full bg-vintageDark border border-vintageGold shadow-lg">
+        <span class="font-bold text-vintageGold uppercase tracking-wider text-sm"><i class="fa-solid fa-industry mr-1.5"></i> MUNDO SENAI - 2026</span>
+        <span class="text-vintageBorder">|</span>
+        <span class="text-vintageCream font-semibold">TURMA: <strong class="text-vintageGold font-mono">EMIIPT2AM</strong></span>
+      </div>
+
+      <p class="font-serif italic text-vintageCream text-sm max-w-2xl mx-auto">
+        "Compreender a história das relações de produção é essencial para construir o futuro do trabalho com dignidade e inovação tecnológica."
+      </p>
+
+      <div class="text-[11px] text-vintageSand/80 space-y-1">
+        <p>Projeto Desenvolvido para o evento Mundo SENAI 2026</p>
+        <p>© 2026 SENAI - Serviço Nacional de Aprendizagem Industrial</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* --------------------------------------------------------
+       1. DATA STORE FOR MODELS
+    -------------------------------------------------------- */
+    const modelsData = {
+      taylorismo: {
+        title: "Taylorismo",
+        period: "1890 – 1910",
+        quote: "No passado o homem esteve em primeiro lugar; no futuro o sistema deve estar em primeiro lugar.",
+        author: "Frederick Winslow Taylor",
+        image: "images.jpeg",
+        desc: "A Administração Científica focou na separação rígida entre a concepção (gerência) e a execução (trabalhador manual). Cada gesto era medido com cronômetro para determinar o tempo padrão ideal e eliminar o desperdício muscular.",
+        pros: ["Aumento substancial da produtividade industrial inicial", "Padronização de ferramentas e metodologias de trabalho", "Redução de custos unitários de produção"],
+        cons: ["Alienação e desumanização da força de trabalho", "Fadiga extrema por movimentos repetitivos", "Perda total da autonomia e do saber artesanal do operário"],
+        keyFeatures: ["Cronometragem de Gestos", "Supervisão Funcional Rígida", "Prêmios por Peça Fabricada"]
+      },
+      fordismo: {
+        title: "Fordismo",
+        period: "1910 – 1970",
+        quote: "O cliente pode ter o carro da cor que quiser, contanto que seja preto.",
+        author: "Henry Ford",
+        image: "fordismo-o-que-e-como-surgiu-e-quais-sao-as-caracteristicas-1-1200x720.jpg",
+        desc: "Incorporou o Taylorismo à esteira rolante mecanizada na fábrica de Highland Park em 1913. Promoveu a produção em massa de bens homogêneos e estabeleceu o consumo em massa através do pagamento de salários elevados (5 dólares/dia).",
+        pros: ["Popularização do automóvel para a classe trabalhadora", "Surgimento da classe média de consumo moderna", "Garantias e empregos estáveis de longa duração"],
+        cons: ["Inflexibilidade ante mudanças nas preferências do mercado", "Altíssimos custos de estocagem reguladora", "Trabalho monótono e exaustivo na linha de montagem"],
+        keyFeatures: ["Esteira Rolante Mecânica", "Produção em Larga Escala", "Estoque Regulador Gigante"]
+      },
+      toyotismo: {
+        title: "Toyotismo",
+        period: "1970 – 2000s",
+        quote: "O desperdício de tempo e matérias-primas é o maior inimigo da eficiência industrial.",
+        author: "Taiichi Ohno (Toyota)",
+        image: "o-que-e-toyotismo-caracteristicas-e-origem-1200x675.jpg",
+        desc: "Modelo japonês de acumulação flexível. Inverteu a lógica fordista ao produzir apenas após a demanda do cliente (Just-in-Time), eliminando estoques e estimulando a polivalência dos operários e a automação com controle de qualidade.",
+        pros: ["Eliminação radical de estoques e custos de armazenagem", "Grande variedade e personalização de produtos", "Controle de qualidade total direto na origem (Kaizen)"],
+        cons: ["Série vulnerabilidade a interrupções na logística", "Intensificação do estresse e sobrecarga mental do trabalhador", "Fragilização da organização sindical tradicional"],
+        keyFeatures: ["Sistema Just-In-Time & Kanban", "Trabalhador Polivalente", "Melhoria Contínua (Kaizen)"]
+      },
+      uberizacao: {
+        title: "Uberização",
+        period: "Século XXI (Atual)",
+        quote: "Você é seu próprio chefe... sob o comando silencioso de um algoritmo.",
+        author: "Sociologia Contemporânea do Trabalho",
+        image: "uberização-uber-aplicativo-motorista-780x470.jpg",
+        desc: "Organização do trabalho em plataformas digitais e aplicativos. O trabalhador é formalmente autônomo, mas subordinado à gestão algorítmica, assumindo os custos dos instrumentos de trabalho sem garantias trabalhistas clássicas.",
+        pros: ["Acesso imediato ao mercado sem barreira burocrática", "Flexibilidade individual na definição da jornada", "Inovação tecnológica e agilidade para os consumidores"],
+        cons: ["Ausência de direitos (férias, 13º salário, seguro de saúde)", "Transferência total dos custos operacionais para o trabalhador", "Oscilação e incerteza constante dos rendimentos"],
+        keyFeatures: ["Gestão por Algoritmos", "Trabalhador Autônomo Just-In-Time", "Plataformização dos Serviços"]
+      }
+    };
+
+    /* --------------------------------------------------------
+       2. NAVIGATION & TIMELINE PROGRESS
+    -------------------------------------------------------- */
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
+    }
+
+    function scrollToModel(modelId, percent) {
+      const el = document.getElementById(modelId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      const progressBar = document.getElementById('timelineProgress');
+      if (progressBar) {
+        progressBar.style.width = percent + '%';
+      }
+    }
+
+    /* --------------------------------------------------------
+       3. MODAL DETAILED VIEWER
+    -------------------------------------------------------- */
+    function openModal(key) {
+      const data = modelsData[key];
+      if (!data) return;
+      const modal = document.getElementById('modelModal');
+      const content = document.getElementById('modalContent');
+      
+      content.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex items-center justify-between border-b border-vintageBorder pb-4">
+            <div>
+              <span class="text-xs font-cinzel text-vintageGold font-bold uppercase tracking-widest">${data.period}</span>
+              <h3 class="font-serif text-3xl font-bold text-vintageCream">${data.title}</h3>
+            </div>
+            <span class="px-3 py-1 bg-vintageOlive border border-vintageBorder text-vintageCream rounded text-xs font-bold">${data.author}</span>
+          </div>
+
+          <div class="relative rounded-xl overflow-hidden border border-vintageBorder max-h-[350px]">
+            <img src="${data.image}" alt="${data.title}" class="w-full h-full object-cover" onerror="handleImgError(this, '${data.title}')">
+          </div>
+
+          <blockquote class="p-4 bg-vintageDark border-l-4 border-vintageGold italic text-xs sm:text-sm text-vintageSand">
+            "${data.quote}"
+          </blockquote>
+
+          <div class="space-y-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-vintageGold">Descrição e Contexto Histórico</h4>
+            <p class="text-xs sm:text-sm text-vintageSand leading-relaxed">${data.desc}</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-lg bg-vintageDark border border-vintageBorder/80 space-y-2">
+              <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider"><i class="fa-solid fa-circle-check mr-1.5"></i> Vantagens / Impactos Positivos</h5>
+              <ul class="text-xs text-vintageSand space-y-1.5 list-disc list-inside">
+                ${data.pros.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="p-4 rounded-lg bg-vintageDark border border-vintageBorder/80 space-y-2">
+              <h5 class="text-xs font-bold text-vintageRustBright uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Críticas e Impactos Negativos</h5>
+              <ul class="text-xs text-vintageSand space-y-1.5 list-disc list-inside">
+                ${data.cons.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modelModal').classList.add('hidden');
+    }
+
+    /* --------------------------------------------------------
+       4. COMPARISON TOOL LOGIC
+    -------------------------------------------------------- */
+    function renderComparisonCard(data) {
+      return `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-vintageBorder pb-3">
+            <div>
+              <span class="text-[10px] text-vintageGold font-cinzel font-bold uppercase">${data.period}</span>
+              <h3 class="font-serif text-xl font-bold text-vintageCream">${data.title}</h3>
+            </div>
+            <span class="text-[10px] text-vintageSand italic">${data.author}</span>
+          </div>
+
+          <div class="h-40 rounded-lg overflow-hidden border border-vintageBorder">
+            <img src="${data.image}" alt="${data.title}" class="w-full h-full object-cover" onerror="handleImgError(this, '${data.title}')">
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <strong class="text-vintageGold block">Pilares Principais:</strong>
+            <div class="flex flex-wrap gap-1">
+              ${data.keyFeatures.map(f => `<span class="px-2 py-0.5 bg-vintageOlive text-[10px] text-vintageCream rounded border border-vintageBorder">${f}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-2 text-xs text-vintageSand">
+            <strong class="text-emerald-400 block"><i class="fa-solid fa-plus text-[10px] mr-1"></i> Ponto Forte:</strong>
+            <p>${data.pros[0]}</p>
+          </div>
+
+          <div class="space-y-2 text-xs text-vintageSand">
+            <strong class="text-vintageRustBright block"><i class="fa-solid fa-minus text-[10px] mr-1"></i> Ponto Crítico:</strong>
+            <p>${data.cons[0]}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateComparison() {
+      const keyA = document.getElementById('selectModelA').value;
+      const keyB = document.getElementById('selectModelB').value;
+      document.getElementById('cardModelA').innerHTML = renderComparisonCard(modelsData[keyA]);
+      document.getElementById('cardModelB').innerHTML = renderComparisonCard(modelsData[keyB]);
+    }
+
+    /* --------------------------------------------------------
+       5. SIMULATOR LOGIC
+    -------------------------------------------------------- */
+    let currentSim = 'taylor';
+    let simTimer = null;
+    let simTimeCount = 0;
+    let isTimerRunning = false;
+
+    function setSimulatorTab(key) {
+      currentSim = key;
+      document.querySelectorAll('.sim-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-vintageGold', 'text-vintageDark', 'border-vintageGold');
+        btn.classList.add('text-vintageSand', 'border-vintageBorder');
+      });
+
+      const tabMap = {
+        taylor: 'simTabTaylor',
+        ford: 'simTabFord',
+        toyota: 'simTabToyota',
+        uber: 'simTabUber'
+      };
+
+      const activeBtn = document.getElementById(tabMap[key]);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-vintageGold', 'text-vintageDark', 'border-vintageGold');
+        activeBtn.classList.remove('text-vintageSand', 'border-vintageBorder');
+      }
+
+      renderSimulator();
+    }
+
+    function renderSimulator() {
+      const container = document.getElementById('simulatorContainer');
+      clearInterval(simTimer);
+      isTimerRunning = false;
+      simTimeCount = 0;
+
+      if (currentSim === 'taylor') {
+        container.innerHTML = `
+          <div class="space-y-4 text-center">
+            <div class="inline-block px-3 py-1 bg-vintageOlive text-vintageGold border border-vintageBorder text-xs font-bold rounded">
+              <i class="fa-solid fa-stopwatch mr-1"></i> Cronômetro de Tempos & Movimentos
+            </div>
+            <p class="text-xs text-vintageSand max-w-lg mx-auto">
+              No Taylorismo, cada fração de segundo conta. Meça o tempo necessário para executar 5 ciclos operacionais padronizados.
+            </p>
+            <div class="text-3xl font-mono font-bold text-vintageGold py-2" id="stopwatchDisplay">00:00.0s</div>
+            <div class="flex justify-center gap-3">
+              <button onclick="toggleStopwatch()" id="stopwatchBtn" class="px-5 py-2 bg-vintageGold text-vintageDark font-bold text-xs rounded hover:bg-amber-400 transition">
+                <i class="fa-solid fa-play mr-1"></i> Iniciar Cronometragem
+              </button>
+              <button onclick="resetStopwatch()" class="px-4 py-2 border border-vintageBorder text-vintageSand text-xs rounded hover:bg-vintageOlive transition">
+                Zerar
+              </button>
+            </div>
+            <div id="simTaylorResult" class="text-xs text-vintageCream hidden bg-vintageOlive/50 p-3 rounded border border-vintageBorder max-w-md mx-auto"></div>
+          </div>
+        `;
+      } else if (currentSim === 'ford') {
+        container.innerHTML = `
+          <div class="space-y-4 text-center">
+            <div class="inline-block px-3 py-1 bg-vintageOlive text-vintageGold border border-vintageBorder text-xs font-bold rounded">
+              <i class="fa-solid fa-industry mr-1"></i> Controle de Velocidade da Esteira
+            </div>
+            <p class="text-xs text-vintageSand max-w-lg mx-auto">
+              Ajuste a velocidade da esteira rolante. Aumentar a velocidade eleva a produção, mas dispara a exaustão física do operário!
+            </p>
+            <div class="flex justify-center gap-3 py-2">
+              <button onclick="setBeltSpeed('Lenta', 40, 10)" class="px-3 py-1.5 bg-vintageDark border border-vintageBorder text-vintageCream text-xs rounded hover:border-vintageGold">Lenta</button>
+              <button onclick="setBeltSpeed('Padrão', 100, 35)" class="px-3 py-1.5 bg-vintageOlive border border-vintageGold text-vintageGold text-xs font-bold rounded">Padrão Ford (1913)</button>
+              <button onclick="setBeltSpeed('Acelerada', 220, 90)" class="px-3 py-1.5 bg-vintageRust text-vintageCream text-xs font-bold rounded hover:bg-vintageRustBright">Acelerada Max</button>
+            </div>
+            <div class="p-4 rounded bg-vintageOlive/30 border border-vintageBorder max-w-md mx-auto grid grid-cols-2 gap-4 text-center">
+              <div>
+                <span class="text-[10px] text-vintageSand uppercase block">Produção/Hora</span>
+                <span id="fordProdStat" class="text-xl font-bold text-vintageGold">100 Veículos</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-vintageSand uppercase block">Nível de Fadiga</span>
+                <span id="fordFatigueStat" class="text-xl font-bold text-amber-400">35%</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (currentSim === 'toyota') {
+        container.innerHTML = `
+          <div class="space-y-4 text-center">
+            <div class="inline-block px-3 py-1 bg-vintageOlive text-vintageGold border border-vintageBorder text-xs font-bold rounded">
+              <i class="fa-solid fa-arrows-spin mr-1"></i> Sistema Puxado Just-In-Time & Kanban
+            </div>
+            <p class="text-xs text-vintageSand max-w-lg mx-auto">
+              No Toyotismo, a fábrica fica parada até que um cliente faça o pedido. Clique para emitir um cartão Kanban e disparar a montagem sem estoque prévio!
+            </p>
+            <div class="py-2">
+              <button onclick="triggerKanbanOrder()" class="px-6 py-3 bg-vintageGold text-vintageDark font-bold text-xs rounded hover:bg-amber-400 transition shadow-lg">
+                <i class="fa-solid fa-cart-shopping mr-1.5"></i> Receber Pedido de Cliente (Cartão Kanban)
+              </button>
+            </div>
+            <div id="kanbanStatus" class="p-4 rounded bg-vintageOlive/30 border border-vintageBorder max-w-md mx-auto text-xs text-vintageCream">
+              Aguardando sinalização de demanda do mercado...
+            </div>
+          </div>
+        `;
+      } else if (currentSim === 'uber') {
+        container.innerHTML = `
+          <div class="space-y-4 text-center">
+            <div class="inline-block px-3 py-1 bg-vintageRust/30 text-vintageRustBright border border-vintageRust/50 text-xs font-bold rounded">
+              <i class="fa-solid fa-mobile-screen-button mr-1"></i> Simulador de Corrida Algorítmica
+            </div>
+            <p class="text-xs text-vintageSand max-w-lg mx-auto">
+              Simule a aceitação de uma corrida. Veja como a tarifa dinâmica, a taxa da plataforma e os custos do veículo afetam o ganho real do trabalhador.
+            </p>
+            <div class="py-2">
+              <button onclick="generateRide()" class="px-6 py-3 bg-vintageRust text-vintageCream font-bold text-xs rounded hover:bg-vintageRustBright transition shadow-lg">
+                <i class="fa-solid fa-bolt mr-1.5"></i> Receber Oferta de Corrida pelo Algoritmo
+              </button>
+            </div>
+            <div id="uberRideOutput" class="p-4 rounded bg-vintageDark border border-vintageBorder max-w-md mx-auto text-xs text-vintageSand">
+              Toque no botão acima para conectar à plataforma...
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function toggleStopwatch() {
+      const btn = document.getElementById('stopwatchBtn');
+      const display = document.getElementById('stopwatchDisplay');
+      const result = document.getElementById('simTaylorResult');
+
+      if (!isTimerRunning) {
+        isTimerRunning = true;
+        btn.innerHTML = `<i class="fa-solid fa-pause mr-1"></i> Parar e Registrar`;
+        btn.classList.replace('bg-vintageGold', 'bg-vintageRust');
+        btn.classList.replace('text-vintageDark', 'text-vintageCream');
+        result.classList.add('hidden');
+
+        simTimer = setInterval(() => {
+          simTimeCount += 100;
+          const seconds = (simTimeCount / 1000).toFixed(1);
+          display.textContent = `00:${seconds < 10 ? '0' : ''}${seconds}s`;
+        }, 100);
+      } else {
+        isTimerRunning = false;
+        clearInterval(simTimer);
+        btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Novo Teste`;
+        btn.classList.replace('bg-vintageRust', 'bg-vintageGold');
+        btn.classList.replace('text-vintageCream', 'text-vintageDark');
+
+        const totalSec = (simTimeCount / 1000).toFixed(1);
+        result.classList.remove('hidden');
+        result.innerHTML = `
+          <strong class="text-vintageGold block mb-1">Resultado da Análise de Tempos:</strong>
+          Tempo final: <strong>${totalSec}s</strong>. Segundo a gerência Taylorista, o tempo padrão ideal do posto é <strong>3.5s</strong>. 
+          ${totalSec <= 3.5 ? '🏆 Excelente! Meta de eficiência atingida com prêmio por produtividade.' : '⚠️ Desempenho abaixo do tempo padrão. Recomenda-se retreinamento dos movimentos.'}
+        `;
+      }
+    }
+
+    function resetStopwatch() {
+      clearInterval(simTimer);
+      isTimerRunning = false;
+      simTimeCount = 0;
+      const display = document.getElementById('stopwatchDisplay');
+      if (display) display.textContent = '00:00.0s';
+      const btn = document.getElementById('stopwatchBtn');
+      if (btn) {
+        btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Iniciar Cronometragem`;
+        btn.classList.replace('bg-vintageRust', 'bg-vintageGold');
+        btn.classList.replace('text-vintageCream', 'text-vintageDark');
+      }
+      const result = document.getElementById('simTaylorResult');
+      if (result) result.classList.add('hidden');
+    }
+
+    function setBeltSpeed(label, prod, fatigue) {
+      document.getElementById('fordProdStat').textContent = prod + ' Veículos';
+      const fatigueEl = document.getElementById('fordFatigueStat');
+      fatigueEl.textContent = fatigue + '%';
+      if (fatigue > 70) {
+        fatigueEl.className = 'text-xl font-bold text-vintageRustBright';
+      } else if (fatigue > 30) {
+        fatigueEl.className = 'text-xl font-bold text-amber-400';
+      } else {
+        fatigueEl.className = 'text-xl font-bold text-emerald-400';
+      }
+    }
+
+    function triggerKanbanOrder() {
+      const status = document.getElementById('kanbanStatus');
+      status.innerHTML = `
+        <div class="space-y-2">
+          <div class="flex items-center justify-center gap-2 text-emerald-400 font-bold">
+            <i class="fa-solid fa-circle-check"></i> Cartão Kanban #3092 Emitido!
+          </div>
+          <p class="text-vintageSand text-[11px]">
+            1. Pedido confirmado pelo concessionário → 2. Robôs acionados na fábrica → 3. Peças chegam do fornecedor em 15 minutos → 4. Veículo entregue sem nenhum dia de estoque parado!
+          </p>
+        </div>
+      `;
+    }
+
+    function generateRide() {
+      const output = document.getElementById('uberRideOutput');
+      const distance = (Math.random() * 8 + 2).toFixed(1);
+      const grossValue = (distance * 3.8 + Math.random() * 5).toFixed(2);
+      const appCut = (grossValue * 0.32).toFixed(2);
+      const fuelMaintenance = (grossValue * 0.35).toFixed(2);
+      const netEarnings = (grossValue - appCut - fuelMaintenance).toFixed(2);
+
+      output.innerHTML = `
+        <div class="space-y-2 text-left">
+          <div class="flex items-center justify-between border-b border-vintageBorder pb-2">
+            <span class="font-bold text-vintageCream"><i class="fa-solid fa-location-dot text-vintageRustBright mr-1"></i> Corrida de ${distance} km</span>
+            <span class="px-2 py-0.5 bg-vintageRust/40 text-vintageCream rounded text-[10px] font-bold">Bruto: R$ ${grossValue}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-[10px] text-center pt-1">
+            <div class="p-1.5 rounded bg-vintageCharcoal border border-vintageBorder">
+              <span class="text-vintageSand block">Taxa App (32%)</span>
+              <span class="text-vintageRustBright font-bold">- R$ ${appCut}</span>
+            </div>
+            <div class="p-1.5 rounded bg-vintageCharcoal border border-vintageBorder">
+              <span class="text-vintageSand block">Combustível/Deprec.</span>
+              <span class="text-amber-400 font-bold">- R$ ${fuelMaintenance}</span>
+            </div>
+            <div class="p-1.5 rounded bg-vintageOlive border border-vintageGold">
+              <span class="text-vintageGold block">Lucro Líquido</span>
+              <span class="text-emerald-400 font-bold">R$ ${netEarnings}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* --------------------------------------------------------
+       6. QUIZ INTERACTIVE LOGIC
+    -------------------------------------------------------- */
+    const quizQuestions = [
+      {
+        question: "Qual era o principal objetivo do estudo de 'Tempos e Movimentos' no Taylorismo?",
+        options: [
+          "Dar total autonomia de criação ao operário na fábrica",
+          "Eliminar gestos desnecessários e padronizar o tempo das tarefas",
+          "Substituir todos os trabalhadores por braços robóticos automatizados",
+          "Criar aplicativos de celular para acompanhamento de tarefas"
+        ],
+        answer: 1,
+        explanation: "Frederick Taylor utilizava o cronômetro para medir rigorosamente cada movimento do operário, estabelecendo um tempo padrão científico para maximizar a produtividade."
+      },
+      {
+        question: "O que caracterizou fundamentalmente a revolução trazida pelo Fordismo em 1913?",
+        options: [
+          "A invenção da esteira rolante mecanizada e a produção em massa de bens padronizados",
+          "A eliminação completa de estoques e matérias-primas na fábrica",
+          "O trabalho realizado exclusivamente por motoristas e entregadores autônomos",
+          "A contratação de profissionais multilíngues e polivalentes"
+        ],
+        answer: 0,
+        explanation: "Henry Ford introduziu a esteira rolante mecanizada, fazendo com que as peças se movessem até os operários, permitindo a produção em massa do Ford Modelo T."
+      },
+      {
+        question: "O conceito de 'Just-In-Time' e a utilização dos cartões 'Kanban' são marcas registradas de qual modelo?",
+        options: [
+          "Taylorismo",
+          "Fordismo",
+          "Toyotismo",
+          "Uberização"
+        ],
+        answer: 2,
+        explanation: "O Toyotismo, desenvolvido na Toyota por Taiichi Ohno, fundamenta-se na produção puxada pela demanda (Just-in-Time), fabricando apenas o necessário no momento certo."
+      },
+      {
+        question: "Na Uberização e na economia de plataformas digitais, qual é uma das principais mudanças na relação de trabalho?",
+        options: [
+          "A empresa fornece o carro, combustível, plano de saúde e aposentadoria garantida",
+          "O trabalhador torna-se dono do meio de produção (veículo/celular) e assume os custos operacionais sob gestão algorítmica",
+          "O fim dos smartphones e a volta das linhas de montagem do século XIX",
+          "A proibição do uso de algoritmos para distribuição de tarefas"
+        ],
+        answer: 1,
+        explanation: "A Uberização transfere os custos e riscos das ferramentas de trabalho (veículo, telefone, manutenção) para o trabalhador autônomo, sob supervisão de algoritmos da plataforma."
+      }
+    ];
+
+    let currentQuizIdx = 0;
+    let quizScore = 0;
+    let answerSelected = false;
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[currentQuizIdx];
+      answerSelected = false;
+
+      document.getElementById('quizProgressText').textContent = `Questão ${currentQuizIdx + 1} de ${quizQuestions.length}`;
+      document.getElementById('quizScoreText').textContent = `Pontuação: ${quizScore}`;
+      document.getElementById('quizQuestion').textContent = q.question;
+
+      const optionsContainer = document.getElementById('quizOptions');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt-btn p-3.5 rounded-lg bg-vintageCharcoal border border-vintageBorder text-xs text-left text-vintageCream hover:border-vintageGold transition flex items-start gap-2.5';
+        btn.onclick = () => selectQuizAnswer(idx);
+        btn.innerHTML = `<span class="w-5 h-5 rounded-full bg-vintageDark border border-vintageBorder flex items-center justify-center text-[10px] font-bold text-vintageGold flex-shrink-0">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
+        optionsContainer.appendChild(btn);
+      });
+
+      const feedback = document.getElementById('quizFeedback');
+      feedback.classList.add('hidden');
+      document.getElementById('quizNextBtn').classList.add('hidden');
+    }
+
+    function selectQuizAnswer(idx) {
+      if (answerSelected) return;
+      answerSelected = true;
+
+      const q = quizQuestions[currentQuizIdx];
+      const optionBtns = document.querySelectorAll('.quiz-opt-btn');
+      const feedback = document.getElementById('quizFeedback');
+
+      optionBtns.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.answer) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-950/40', 'text-emerald-200');
+        } else if (i === idx) {
+          btn.classList.add('border-vintageRustBright', 'bg-vintageRust/30', 'text-vintageCream');
+        }
+      });
+
+      if (idx === q.answer) {
+        quizScore += 25;
+        document.getElementById('quizScoreText').textContent = `Pontuação: ${quizScore}`;
+        feedback.className = 'p-4 rounded-lg text-xs leading-relaxed border border-emerald-500/50 bg-emerald-950/30 text-emerald-200 mt-4';
+        feedback.innerHTML = `<strong><i class="fa-solid fa-circle-check mr-1"></i> Resposta Correta!</strong><br>${q.explanation}`;
+      } else {
+        feedback.className = 'p-4 rounded-lg text-xs leading-relaxed border border-vintageRust/60 bg-vintageRust/20 text-vintageCream mt-4';
+        feedback.innerHTML = `<strong><i class="fa-solid fa-circle-xmark mr-1"></i> Resposta Incorreta.</strong><br>${q.explanation}`;
+      }
+
+      feedback.classList.remove('hidden');
+      document.getElementById('quizNextBtn').classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      currentQuizIdx++;
+      if (currentQuizIdx < quizQuestions.length) {
+        renderQuizQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      const container = document.getElementById('quizContainer');
+      document.getElementById('quizNextBtn').classList.add('hidden');
+
+      container.innerHTML = `
+        <div class="text-center py-6 space-y-4">
+          <div class="w-16 h-16 rounded-full bg-vintageOlive border-2 border-vintageGold text-vintageGold flex items-center justify-center text-2xl mx-auto shadow-xl">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-vintageCream">Resultado da Avaliação SENAI</h3>
+          <div class="text-4xl font-bold font-mono text-vintageGold">${quizScore} / 100 Pontos</div>
+          <p class="text-xs text-vintageSand max-w-md mx-auto">
+            ${quizScore >= 75 ? '🎉 Parabéns! Você possui excelente domínio teórico e prático sobre a evolução dos modelos de produção industrial e contemporâneos.' : 'Estudo concluído! Sugerimos revisar os cartões interativos da linha do tempo para aprofundar seu aprendizado.'}
+          </p>
+          <div class="pt-2">
+            <button onclick="restartQuiz()" class="px-6 py-2.5 bg-vintageGold text-vintageDark font-bold text-xs uppercase rounded hover:bg-amber-400 transition shadow">
+              Refazer Avaliação
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function restartQuiz() {
+      currentQuizIdx = 0;
+      quizScore = 0;
+      location.hash = '#quiz';
+      window.location.reload();
+    }
+
+    /* --------------------------------------------------------
+       7. INITIALIZATION ON WINDOW LOAD
+    -------------------------------------------------------- */
+    window.onload = function() {
+      updateComparison();
+      setSimulatorTab('taylor');
+      renderQuizQuestion();
+
+      // Highlight active timeline node on scroll
+      window.addEventListener('scroll', () => {
+        const sections = ['taylorismo', 'fordismo', 'toyotismo', 'uberizacao'];
+        const scrollPos = window.scrollY + 300;
+
+        sections.forEach((id, index) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPos >= top && scrollPos < top + height) {
+              const percents = [0, 33, 66, 100];
+              const progressBar = document.getElementById('timelineProgress');
+              if (progressBar) progressBar.style.width = percents[index] + '%';
+            }
+          }
+        });
+      });
+    };
+  </script>
 </body>
 </html>
