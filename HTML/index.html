@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam-airline</title>
+    <title></title>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
@@ -18,106 +18,147 @@
         <aside>
             <nav id="lista">
                 <ul>
-                    <li>Início</li>
+                    <li><a href="/index.html">Inicio</a></li>
                     <li><a href="/fluxo.html">Fluxo do trabalho</a></li>
-                    <li><a href="/fluxo.html">Fluxo do trabalho</a></li>
-                    <li><a href="/fluxo.html">Projetos</a></li>
-                    <li><a href="/fluxo.html">Avaliação</a></li>
+                    <li><a href="/linha.html">Linha do tempo</a></li>
+                    <li><a href="/projetos.html">Projetos</a></li>
+                    <li><a href="/avaliação.html">Avaliação</a></li>
                 </ul>
             </nav>
         </aside>
         <main id="principal">
-          <section id="banner-principal" class="secao">
-            <div class="banner-principal">
-                <h1>Bem-vindo ao Mundo Senai</h1>
-                <p>Encontre as melhores informações do projeto da turma EMIIPT2AM aqui.</p>
-                <br>
-                <a href="#cards" class="btn"> Ver Fluxo do trabalho</a>
-            </div>
-            <br><br><br>
-        </section>
-        <br><br><hr>
-        <br>
-        <h2>O que é?</h2>
-            <section id="cards">
-                <div id="bloco_1">
-                    <img id="maldivas" src="imagem/taylorismobb.webp" alt="taylor">
-                    <img id="estrela" src="pngtree-five-star-rating-sign-png-image_5294765.png" alt="Avaliação">
-                    <h6>de R$1800 por 2x de R$900,00</h6>
-                    <h4>Viagem de Casal para as praias de Maldivas.Quarto especial para lua de mel com a diária a combinar. Boa indicação!</h4>
-                    <button type="submit" id="detalhes" class="btn">Ver Detalhes</button>
-                </div>
+           <main id="principal">
+  <div class="banner-carrossel">
+   
+    <div class="slides-backgrounds">
+      
+      <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/56-Fases-do-Taylorismo.webp');">
+      </div>
+      
+      <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/fordismo-banner.jpg');">
+      </div>
+      
+      <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/toyotismo-banner.jpg');">
+      </div>
+      
+      <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/uberização-banner.jpeg');">
 
-                <div id="bloco_2">
-                    <img id="canada" src="roteiros-de-viagem-canada.jpg" alt="Canadá">
-                    <img id="estrela" src="pngtree-five-star-rating-sign-png-image_5294765.png" alt="Avaliação">
-                    <h6>de R$2400 por 2x de R$1200,00</h6>
-                    <h4>Explore os trechos canadenses com conforto e segurança,<br> viagem adequada para uma família com ótimos descontos!</h4>
-                    <button type="submit" class="btn">Ver Detalhes</button>
-                </div>
+      </div>
+      <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/56-Fases-do-Taylorismo.webp');">
+      </div>
+    </div>
+    <div class="conteudo-banner-fixo">
+      <h2>Bem-vindo ao Mundo Senai</h2>
+      <p>Encontre as melhores informações do projeto da turma EMIIPT2AM aqui.</p>
+      <a href="/fluxo.html" class="btn">Ver Fluxo do trabalho</a>
+    </div>
+  </div>
+<div class="linha-divisoria"></div>
+<!-- Seção Objetivo do Projeto -->
+<section class="objetivo-projeto">
+  <div class="objetivo-header">
+    <span class="badge">Projeto Acadêmico • Mundo SENAI</span>
+    <h2>Objetivo do Projeto</h2>
+    <p class="subtitle">Articulação entre Sociologia do Trabalho e Desenvolvimento de Software para análise crítica das relações produtivas na era digital.</p>
+  </div>
 
-                <div id="bloco_3">
-                    <img id="coreia" src="images.jpg" alt="Coreia">
-                    <img id="estrela" src="pngtree-five-star-rating-sign-png-image_5294765.png" alt="Avaliação">
-                    <h6>de R$1800 por 5x de R$360,00</h6>
-                    <h4>Experiências estilo dorama em diárias de baixo custo.<br>Quartos com disponibilidade para uma família de 5 pessoas1</h4>
-                    <button type="submit" class="btn">Ver Detalhes</button>
-                </div>
-                <br><br><br><br>
-            </section>
-            <br><br><hr>
-            <section id="roteiros" class="secao">
-              <br><br>
-              <h2>Roteiros Personalizados</h2>
-              <p>Montamos itinerários sob medida para você aproveitar cada segundo da sua viagem sem se preocupar com logística.</p>
-              <div class="grid-roteiros">
-                  <div class="box-roteiro">
-                    <img src="romantico.jpg" id="roteiro-romantico">
-                      <h3>Roteiro Romântico</h3>
-                      <br>
-                      <p>Jantares à beira-mar, passeios privativos e experiências VIP a dois.</p>
-                  </div>
-                  <div class="box-roteiro">
-                    <img src="familia.jpg" id="roteiro-familia">
-                      <h3>Roteiro em Família</h3>
-                      <br>
-                      <p>Parques, passeios guiados, hospedagem kids-friendly e facilidades de transporte.</p>
-                  </div>
-                  <div class="box-roteiro">
-                    <img src="aventura.jpg" id="roteiro-aventura">
-                      <h3>Roteiro Aventura</h3>
-                      <br>
-                      <p>Trilhas, esportes radicais e imersão cultural em destinos exuberantes.</p>
-                  </div>
-              </div>
-          </section>
+  <div class="objetivo-conteudo">
+    <!-- Card Destaque: Objetivo Geral -->
+    <div class="objetivo-destaque">
+      <div class="icone-foco">🎯</div>
+      <div class="texto-foco">
+        <h3>Objetivo Geral</h3>
+        <p>Permitir que os estudantes analisem criticamente como a tecnologia deixou de ser apenas uma ferramenta auxiliar de produção nas fábricas para se tornar o próprio mecanismo de gestão, supervisão e remuneração do trabalho na sociedade contemporânea, articulando os conhecimentos da Sociologia do Trabalho com as competências técnicas do curso de Informática para Internet.</p>
+      </div>
+    </div>
 
-            <br><br>
+    <!-- Grid de Objetivos Específicos -->
+    <div class="objetivo-grid">
+      <div class="objetivo-card">
+        <span class="step-number">01</span>
+        <h3>Modelos Produtivos</h3>
+        <p>Compreender a transição histórica dos quatro modelos produtivos (Taylorismo, Fordismo, Toyotismo e Uberização) e reconhecer suas marcas no cotidiano das cidades e do trabalho contemporâneo.</p>
+      </div>
 
-            <section id="ajuda">
-                <hr><br><br>
-                <h2>Precisa de Ajuda?</h2>
-                <br>
-                <p>Fale com a nossa equipe de suporte para tirar dúvidas, alterar reservas ou planejar sua viagem.</p>
-                <form class="form-contato" onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso!');">
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu E-mail" required>
-                    <textarea placeholder="Como podemos te ajudar?" rows="4" required></textarea>
-                    <button type="submit" class="btn">Enviar Mensagem</button>
-                </form>
-            </section>
+      <div class="objetivo-card">
+        <span class="step-number">02</span>
+        <h3>Sociologia & Algoritmos</h3>
+        <p>Relacionar os conceitos sociológicos de controle, padronização e flexibilização do trabalho com a lógica de desenvolvimento de software, algoritmos e interfaces digitais.</p>
+      </div>
 
-            <br><br><hr>
+      <div class="objetivo-card">
+        <span class="step-number">03</span>
+        <h3>Aplicações Interativas</h3>
+        <p>Desenvolver aplicações web práticas e interativas em HTML, CSS e JavaScript que demonstrem visualmente aos visitantes do evento Mundo SENAI como os algoritmos operam na gestão e no controle do trabalho.</p>
+      </div>
 
-            <section id="sobre">
-            <br>
-                <h2>Sobre a Sam-Airline</h2>
-                <br><br>
-                <p>A <strong>Sam-Airline</strong> nasceu com o propósito de conectar pessoas aos seus sonhos através de viagens acessíveis, seguras e inesquecíveis.</p>
-                <p>Com mais de 10 anos de experiência no mercado de aviação e turismo, nossa missão é garantir que você viaje com total tranquilidade, aproveitando as melhores condições de pagamento e suporte 24 horas por dia.</p>
-            </section>
-        </main>
-    </div> 
+      <div class="objetivo-card">
+        <span class="step-number">04</span>
+        <h3>Competências Acadêmicas</h3>
+        <p>Exercitar habilidades de trabalho em equipe, comunicação pública, organização de tempo e síntese de conteúdo em um evento técnico de grande visibilidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="linha-divisoria"></div>
+<section class="proxima-secao">
+  <h1>Sobre Nós</h1>
+  <br>
+  <p>O curso do Ensino Médio Integrado ao Técnico em Informática (turma EMIIPT2AM) combina a formação geral básica do ensino médio com a qualificação profissional técnica na área de Tecnologia da Informação.
+Essa modalidade integrada permite que os estudantes desenvolvam, de forma simultânea, conhecimentos teóricos e práticos voltados para o mercado de trabalho digital e para o prosseguimento nos estudos superiores.</p>
+
+ <h2>Estrutura e Objetivos do Curso</h2>
+ <p>Formação Geral Básica: Compreende as disciplinas tradicionais do ensino médio (como Português, Matemática, História, Geografia, Física e Química), garantindo o preparo para exames como o ENEM e vestibulares.
+
+Formação Técnica em Informática: Foca no desenvolvimento de competências tecnológicas essenciais para o mercado atual, incluindo:
+
+Lógica de Programação e Desenvolvimento de Software: Aprendizado de linguagens de programação e algoritmos.
+
+Desenvolvimento Web e Mobile: Criação de sites, sistemas web e aplicativos.
+
+Banco de Dados: Modelagem, implementação e manipulação de dados.
+
+Redes de Computadores e Hardware: Montagem, manutenção de equipamentos e estruturação de redes de comunicação.
+
+Sistemas Operacionais: Configuração e gerenciamento de ambientes computacionais.</p>
+</section>
+<div class="linha-divisoria"></div>
+<!-- Seção Mundo SENAI -->
+<section class="mundo-senai">
+  <div class="senai-header">
+    <span class="badge">Evento & Oportunidade</span>
+    <h2>Mundo SENAI</h2>
+    <p class="subtitle">Conecte-se com a maior instituição de ensino técnico da América Latina e transforme seu futuro profissional.</p>
+  </div>
+
+  <div class="senai-grid">
+    <div class="senai-card">
+      <div class="card-icon">🚀</div>
+      <h3>O que é?</h3>
+      <p>Um evento anual interativo que abre as portas do SENAI para apresentar cursos, profissões da indústria e tendências do mercado de trabalho.</p>
+    </div>
+
+    <div class="senai-card">
+      <div class="card-icon">💻</div>
+      <h3>Feira de Profissões</h3>
+      <p>Acesse palestras, minicursos gratuitos, visitas guiadas aos laboratórios tecnológicos e orientação profissional diretamente com especialistas.</p>
+    </div>
+
+    <div class="senai-card" id="oportunidade">
+      <div class="card-icon">🎯</div>
+      <h3>Oportunidades</h3>
+      <p>Descubra vagas de estágios, bolsas de estudo e parcerias diretas com indústrias para alavancar sua trajetória no setor de Tecnologia e Inovação.</p>
+    </div>
+  </div>
+
+  <div class="senai-footer">
+    <a href="https://www.mundosenai.com.br" target="_blank" rel="noopener noreferrer" class="btn-senai">
+      Saiba mais no site oficial
+    </a>
+  </div>
+</section>
+</main>
+      
 
 </body>
 </html>
