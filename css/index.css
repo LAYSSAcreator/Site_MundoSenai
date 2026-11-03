@@ -59,12 +59,13 @@
     position: fixed;
 }
 .banner-principal {
+    max-width: 900px;
     margin-top: 80px;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/56-Fases-do-Taylorismo.webp');
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 80px 40px;
+    padding: 10px 40px;
     border-radius: 12px;
     text-align: center;
 }
