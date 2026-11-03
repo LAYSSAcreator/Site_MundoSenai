@@ -4,11 +4,13 @@
     box-sizing: border-box;
 }
 #logo {
+    margin: 5px;
     justify-content: center;
     width: 250px; 
     margin-top:15px;
 }
 .banner-carrossel {
+    max-width: 900px;
     position: relative;
     margin-top: 5px;
     border-radius: 12px;
@@ -41,7 +43,7 @@
     align-items: center;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     z-index: 2; 
     pointer-events: none; 
@@ -59,7 +61,6 @@
     position: fixed;
 }
 .banner-principal {
-    max-width: 900px;
     margin-top: 80px;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/imagem/56-Fases-do-Taylorismo.webp');
     background-size: cover;
