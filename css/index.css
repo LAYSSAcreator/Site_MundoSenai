@@ -90,6 +90,9 @@ aside {
 ul {
     margin-top: 25px;
 }
+li{
+    text-decoration: none;
+}
 a {
     color: aliceblue;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
