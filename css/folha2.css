@@ -117,8 +117,8 @@ li:hover {
 ========================================= */
 
 .banner-carrossel {
-    width: 100%;
-    max-width: 1200px;
+    width: 130%;
+    max-width: 1300px;
     height: 350px;
     position: relative;
     margin: 5px auto 0;
