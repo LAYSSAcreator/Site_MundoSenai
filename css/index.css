@@ -114,10 +114,10 @@ li:hover {
 }
 
 #principal {
-    margin-left: 250px;
+    margin-left: 20px;
     width: calc(100% - 250px);
-    padding: 40px;
-    margin: 40px;
+    padding: 10px;
+    margin: 10px;
    
 }
 .btn {
