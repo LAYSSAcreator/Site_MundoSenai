@@ -72,6 +72,10 @@ aside {
     display: flex;
     justify-content: center;
     z-index: 900;
+} 
+.ativo{
+    background-color: #ffc56d;
+    color: aliceblue;
 }
 
 ul {
