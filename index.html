@@ -144,10 +144,13 @@ main { flex: 1; min-width: 0; }
     background: linear-gradient(180deg, rgba(14, 15, 13, .1) 0%, rgba(14, 15, 13, .85) 100%);
     pointer-events: none;
 }
-/* Troque os gradientes por imagens: background-image: url('img/banner1.jpg'); */
-.slide-bg:nth-child(1) { background-image: radial-gradient(circle at 80% 20%, #4a2a1f, #1a1c18 60%); }
-.slide-bg:nth-child(2) { background-image: radial-gradient(circle at 20% 30%, #3a3f2f, #141512 65%); }
-.slide-bg:nth-child(3) { background-image: radial-gradient(circle at 75% 25%, #5a2020, #1a1c18 60%); }
+/* Imagens dos slides (a cor de fundo aparece se a imagem não carregar) */
+.slide-taylor { background-color: #1a1c18; background-image: url('img/taylor-banner.jpg'); }
+.slide-fases  { background-color: #1a1c18; background-image: url('img/56-Fases-do-Taylorismo.webp'); }
+.slide-ford   { background-color: #1a1c18; background-image: url('img/fordismo-banner.jpg'); }
+.slide-toyota { background-color: #1a1c18; background-image: url('img/toyotismo-banner.jpg'); }
+/* Uberização ainda sem imagem: quando tiver, troque por url('img/SEU-ARQUIVO.jpg') */
+.slide-uber   { background-color: #1a1c18; background-image: radial-gradient(circle at 75% 25%, #5a2020, #1a1c18 60%); }
 .slide-texto { position: relative; z-index: 1; max-width: 580px; }
 .slide-texto h2 { font-size: 2.4rem; color: var(--cream); margin-bottom: 8px; }
 .slide-texto p { color: var(--sand); font-size: 1.15rem; font-weight: 600; }
@@ -343,22 +346,34 @@ main { flex: 1; min-width: 0; }
             <!-- CARROSSEL -->
             <div class="carrossel" id="carrossel">
                 <div class="slides" id="slides">
-                    <div class="slide-bg">
+                    <div class="slide-bg slide-taylor">
                         <div class="slide-texto">
-                            <h2>Mundo SENAI 2026</h2>
-                            <p>Conheça cursos, profissões e tendências da indústria.</p>
+                            <h2>Taylorismo</h2>
+                            <p>Tempo cronometrado e divisão estrita do trabalho.</p>
                         </div>
                     </div>
-                    <div class="slide-bg">
+                    <div class="slide-bg slide-fases">
                         <div class="slide-texto">
-                            <h2>Tecnologia na prática</h2>
-                            <p>Laboratórios, minicursos e visitas guiadas.</p>
+                            <h2>Fases do Taylorismo</h2>
+                            <p>Como a administração científica foi aplicada passo a passo.</p>
                         </div>
                     </div>
-                    <div class="slide-bg">
+                    <div class="slide-bg slide-ford">
                         <div class="slide-texto">
-                            <h2>A evolução do trabalho</h2>
-                            <p>Taylorismo, Fordismo, Toyotismo e Uberização.</p>
+                            <h2>Fordismo</h2>
+                            <p>Esteira de montagem e produção em massa.</p>
+                        </div>
+                    </div>
+                    <div class="slide-bg slide-toyota">
+                        <div class="slide-texto">
+                            <h2>Toyotismo</h2>
+                            <p>Produção enxuta, Just-In-Time e zero desperdício.</p>
+                        </div>
+                    </div>
+                    <div class="slide-bg slide-uber">
+                        <div class="slide-texto">
+                            <h2>Uberização</h2>
+                            <p>Trabalho sob demanda e gestão por algoritmos.</p>
                         </div>
                     </div>
                 </div>
