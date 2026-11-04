@@ -77,6 +77,10 @@
 aside {
     width: 250px;
 }
+.ativo{
+    background-color: #ffc56d;
+    color: aliceblue;
+}
 #lista {
     background-color: rgb(90, 4, 4);
     text-decoration: none;
