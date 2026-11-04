@@ -80,8 +80,13 @@
     <!-- menu do computador -->
     <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold uppercase tracking-wider" id="menuPc"></nav>
 
-    <!-- botão do menu no celular -->
-    <button id="botaoMenu" class="lg:hidden text-vintageCream text-2xl p-2" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <div class="flex items-center gap-2">
+      <!-- botão "Menu": leva para a página index.html -->
+      <a href="index.html" class="px-4 py-2 rounded bg-vintageRust text-vintageCream text-xs font-semibold uppercase tracking-wider hover:bg-vintageRustBright transition">Menu</a>
+
+      <!-- botão das seções no celular -->
+      <button id="botaoMenu" class="lg:hidden text-vintageCream text-2xl p-2" aria-label="Abrir seções" aria-expanded="false">☰</button>
+    </div>
   </div>
   <div id="menuCelular" class="hidden lg:hidden bg-vintageCharcoal border-t border-vintageBorder px-4 pb-4 text-center text-sm"></div>
 </header>
@@ -91,7 +96,7 @@
   <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#c89b3c_1px,transparent_1px)] [background-size:32px_32px]"></div>
   <div class="max-w-4xl mx-auto text-center relative z-10 space-y-6">
     <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-extrabold text-vintageCream tracking-tight leading-tight">
-      Seu chefe já foi um <span id="troca" class="text-vintageGold italic">cronômetro</span>.
+      Seu chefe já foi <span id="artigo">um</span> <span id="troca" class="text-vintageGold italic">cronômetro</span>.
     </h1>
     <p class="font-cinzel text-vintageGold text-xl sm:text-3xl">Taylorismo, Fordismo, Toyotismo e Uberização</p>
     <p class="max-w-2xl mx-auto text-base sm:text-lg text-vintageSand font-light leading-relaxed">
@@ -230,15 +235,18 @@ document.getElementById("eras").innerHTML = eras.map(e => `
   </section>`).join("");
 
 /* ========== 9. COMPORTAMENTOS ========== */
-// 9a) palavra que troca no título
-const palavras = [["cronômetro", eras[0].cor], ["esteira", eras[1].cor], ["cartãozinho", eras[2].cor], ["aplicativo", eras[3].cor]];
+// 9a) palavra que troca no título (o "um/uma" troca junto)
+// formato: [artigo, palavra, cor]
+const palavras = [["um", "cronômetro", eras[0].cor], ["uma", "esteira", eras[1].cor], ["um", "cartãozinho", eras[2].cor], ["um", "aplicativo", eras[3].cor]];
+const artigo = document.getElementById("artigo");
 const troca = document.getElementById("troca");
 let p = 0;
 if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   setInterval(() => {
     p = (p + 1) % palavras.length;
-    troca.textContent = palavras[p][0];
-    troca.style.color = palavras[p][1];
+    artigo.textContent = palavras[p][0];
+    troca.textContent = palavras[p][1];
+    troca.style.color = palavras[p][2];
   }, 2000);
 }
 
