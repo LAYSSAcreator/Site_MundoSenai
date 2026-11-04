@@ -144,13 +144,14 @@ main { flex: 1; min-width: 0; }
     background: linear-gradient(180deg, rgba(14, 15, 13, .1) 0%, rgba(14, 15, 13, .85) 100%);
     pointer-events: none;
 }
-/* Imagens dos slides (a cor de fundo aparece se a imagem não carregar) */
+
+/* Imagens dos slides */
 .slide-taylor { background-color: #1a1c18; background-image: url('img/taylor-banner.jpg'); }
 .slide-fases  { background-color: #1a1c18; background-image: url('img/56-Fases-do-Taylorismo.webp'); }
 .slide-ford   { background-color: #1a1c18; background-image: url('img/fordismo-banner.jpg'); }
 .slide-toyota { background-color: #1a1c18; background-image: url('img/toyotismo-banner.jpg'); }
-/* Uberização ainda sem imagem: quando tiver, troque por url('img/SEU-ARQUIVO.jpg') */
-.slide-uber   { background-color: #1a1c18; background-image: radial-gradient(circle at 75% 25%, #5a2020, #1a1c18 60%); }
+.slide-uber   { background-color: #1a1c18; background-image: url('img/uberizacao-banner.jpg'); }
+
 .slide-texto { position: relative; z-index: 1; max-width: 580px; }
 .slide-texto h2 { font-size: 2.4rem; color: var(--cream); margin-bottom: 8px; }
 .slide-texto p { color: var(--sand); font-size: 1.15rem; font-weight: 600; }
@@ -451,12 +452,11 @@ main { flex: 1; min-width: 0; }
             const caixaDots = document.getElementById('indicadores');
             const carrossel = document.getElementById('carrossel');
             const total = slides.length;
-            const INTERVALO = 5000; // 5 segundos por imagem
+            const INTERVALO = 5000;
 
             let atual = 0;
             let timer = null;
 
-            // cria os indicadores (bolinhas)
             const dots = [];
             for (let i = 0; i < total; i++) {
                 const dot = document.createElement('button');
@@ -468,7 +468,7 @@ main { flex: 1; min-width: 0; }
             }
 
             function irPara(indice) {
-                atual = (indice + total) % total; // volta ao início/fim
+                atual = (indice + total) % total;
                 trilho.style.transform = 'translateX(-' + (atual * 100) + '%)';
                 dots.forEach((d, i) => d.classList.toggle('ativo-dot', i === atual));
             }
@@ -480,11 +480,9 @@ main { flex: 1; min-width: 0; }
             document.getElementById('btnAnterior').addEventListener('click', () => { irPara(atual - 1); reiniciar(); });
             document.getElementById('btnProximo').addEventListener('click', () => { irPara(atual + 1); reiniciar(); });
 
-            // pausa com o mouse em cima
             carrossel.addEventListener('mouseenter', parar);
             carrossel.addEventListener('mouseleave', iniciar);
 
-            // suporte a deslizar no celular
             let inicioX = null;
             carrossel.addEventListener('touchstart', e => { inicioX = e.touches[0].clientX; }, { passive: true });
             carrossel.addEventListener('touchend', e => {
@@ -498,8 +496,7 @@ main { flex: 1; min-width: 0; }
             iniciar();
         })();
 
-        // Menu em gaveta (☰) para celular.
-        // Se o JavaScript falhar, o CSS mantém o menu empilhado normal.
+        // Menu em gaveta para celular
         (function () {
             var MOBILE = window.matchMedia('(max-width: 768px)');
             document.documentElement.classList.add('js-menu');
@@ -542,6 +539,5 @@ main { flex: 1; min-width: 0; }
             });
         })();
     </script>
-
 </body>
 </html>
