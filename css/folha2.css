@@ -44,7 +44,7 @@ body {
 /* =========================================
    ESTRUTURA PRINCIPAL
 ========================================= */
-
+a
 #conteudo {
     display: flex;
     margin-top: 100px;
@@ -73,10 +73,15 @@ aside {
     justify-content: center;
     z-index: 900;
 } 
-.ativo{
-    background-color: #ffc56d;
-    color: aliceblue;
+/* Estilo para a página que está aberta */
+nav a.ativo {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 8px 12px;
 }
+
 
 ul {
     margin-top: 25px;
