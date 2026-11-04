@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141513">
 <title>Quem manda no seu trabalho? · Mundo SENAI 2026</title>
 
-<!-- Tailwind (mesma ideia do seu código) e fontes: Cinzel, Playfair Display e Inter -->
+<!-- Tailwind e fontes: Cinzel, Playfair Display e Inter -->
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
-<!-- ========== 1. PALETA (a mesma do seu código) ========== -->
+<!-- ========== 1. PALETA ========== -->
 <script>
   tailwind.config = {
     theme: { extend: {
@@ -32,15 +33,15 @@
 
 <style>
   :root { color-scheme: dark; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-  body { background: #141513; color: #e8dfc8; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); -webkit-text-size-adjust: 100%; }
+  body { background: #141513; color: #e8dfc8; font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
   /* faixa que cobre a área do relógio/bateria no celular */
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: #141513; z-index: 60; }
   :focus-visible { outline: 3px solid #c89b3c; outline-offset: 2px; }
 
   /* esteira animada (separador entre o topo e a linha do tempo) */
   @keyframes esteira { to { background-position: 50px 0; } }
-  .esteira { height: 14px; background: repeating-linear-gradient(90deg, #2b3327, #2b3327 25px, #1c1d1a 25px, #1c1d1a 50px); animation: esteira 1.8s linear infinite; }
+  .esteira { height: 12px; background: repeating-linear-gradient(90deg, #2b3327, #2b3327 25px, #1c1d1a 25px, #1c1d1a 50px); animation: esteira 1.8s linear infinite; }
 
   /* nós da linha do tempo: ficam dourados quando a leitura passa por eles */
   .no .circulo { border-color: #3e473b; color: #d2c5a5; }
@@ -60,70 +61,65 @@
 
 <body class="selection:bg-vintageRust selection:text-vintageCream">
 
-<!-- ================= 2. TOPO + MENU ================= -->
+<!-- ================= 2. TOPO (versão celular) ================= -->
 <header class="sticky z-50 bg-vintageDark/95 backdrop-blur-md border-b border-vintageBorder shadow-2xl" style="top: env(safe-area-inset-top, 0px)">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-lg border-2 border-vintageGold bg-vintageOlive flex flex-col items-center justify-center text-vintageGold">
-        <span class="font-black text-xs leading-none">SENAI</span>
+  <div class="max-w-xl mx-auto px-3 h-16 flex items-center justify-between gap-2">
+    <a href="#" class="flex items-center gap-2.5 min-w-0">
+      <div class="shrink-0 w-10 h-10 rounded-lg border-2 border-vintageGold bg-vintageOlive flex flex-col items-center justify-center text-vintageGold">
+        <span class="font-black text-[10px] leading-none">SENAI</span>
         <span class="text-[8px] font-bold">2026</span>
       </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="font-cinzel text-base sm:text-lg font-bold tracking-wider text-vintageCream leading-none">MUNDO SENAI - 2026</span>
-          <span class="px-2 py-0.5 bg-vintageRust text-vintageCream text-[9px] font-bold rounded uppercase tracking-wider">EMIIPT2AM</span>
-        </div>
-        <span class="text-[10px] text-vintageGold tracking-widest uppercase font-semibold">A evolução do trabalho</span>
+      <div class="min-w-0">
+        <span class="block font-cinzel text-sm font-bold tracking-wide text-vintageCream leading-none whitespace-nowrap">MUNDO SENAI - 2026</span>
+        <span class="block mt-1 text-[9px] text-vintageGold tracking-widest uppercase font-semibold whitespace-nowrap">A evolução do trabalho</span>
       </div>
     </a>
 
-    <!-- menu do computador -->
-    <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold uppercase tracking-wider" id="menuPc"></nav>
+    <div class="shrink-0 flex items-center gap-1">
+      <!-- botão "Menu": leva para a página index.html (que fica fora da pasta HTML) -->
+      <a href="../index.html" class="min-h-[44px] flex items-center px-3 rounded bg-vintageRust text-vintageCream text-xs font-semibold uppercase tracking-wider active:bg-vintageRustBright transition">Menu</a>
 
-    <div class="flex items-center gap-2">
-      <!-- botão "Menu": leva para a página index.html -->
-<a href="../" class="px-4 py-2 rounded bg-vintageRust text-vintageCream text-xs font-semibold uppercase tracking-wider hover:bg-vintageRustBright transition">Menu</a>
-      <!-- botão das seções no celular -->
-      <button id="botaoMenu" class="lg:hidden text-vintageCream text-2xl p-2" aria-label="Abrir seções" aria-expanded="false">☰</button>
+      <!-- botão que abre a lista das eras -->
+      <button id="botaoMenu" class="w-11 h-11 text-vintageCream text-2xl" aria-label="Abrir seções" aria-expanded="false">☰</button>
     </div>
   </div>
-  <div id="menuCelular" class="hidden lg:hidden bg-vintageCharcoal border-t border-vintageBorder px-4 pb-4 text-center text-sm"></div>
+  <div id="menuCelular" class="hidden bg-vintageCharcoal border-t border-vintageBorder px-4 pb-2 text-center text-base"></div>
 </header>
 
 <!-- ================= 3. HERO ================= -->
-<section class="relative flex items-center justify-center py-16 sm:py-24 px-4 border-b border-vintageBorder overflow-hidden">
+<section class="relative flex items-center justify-center py-10 px-4 border-b border-vintageBorder overflow-hidden">
   <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#c89b3c_1px,transparent_1px)] [background-size:32px_32px]"></div>
-  <div class="max-w-4xl mx-auto text-center relative z-10 space-y-6">
-    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-extrabold text-vintageCream tracking-tight leading-tight">
+  <div class="w-full max-w-xl mx-auto text-center relative z-10 space-y-5">
+    <h1 class="font-serif text-4xl font-extrabold text-vintageCream tracking-tight leading-tight" style="min-height: 2.5em">
       Seu chefe já foi <span id="artigo">um</span> <span id="troca" class="text-vintageGold italic">cronômetro</span>.
     </h1>
-    <p class="font-cinzel text-vintageGold text-xl sm:text-3xl">Taylorismo, Fordismo, Toyotismo e Uberização</p>
-    <p class="max-w-2xl mx-auto text-base sm:text-lg text-vintageSand font-light leading-relaxed">
+    <p class="font-cinzel text-vintageGold text-lg leading-snug">Taylorismo, Fordismo, Toyotismo e Uberização</p>
+    <p class="text-base text-vintageSand font-light leading-relaxed">
       Quatro jeitos de organizar o trabalho que mudaram a vida de milhões de pessoas e explicam por que existe o app de entrega do seu bairro. Leitura de 4 minutos.
     </p>
-    <a href="#taylorismo" class="inline-block px-8 py-3.5 rounded bg-vintageRust text-vintageCream font-semibold hover:bg-vintageRustBright transition shadow-xl">Começar pela primeira era ↓</a>
+    <a href="#taylorismo" class="block w-full py-3.5 rounded bg-vintageRust text-vintageCream font-semibold active:bg-vintageRustBright transition shadow-xl">Começar pela primeira era ↓</a>
 
     <!-- faixa com as quatro datas -->
-    <div id="faixaDatas" class="pt-10 mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-vintageBorder/60"></div>
+    <div id="faixaDatas" class="pt-6 mt-6 grid grid-cols-2 gap-2 border-t border-vintageBorder/60"></div>
   </div>
 </section>
 
 <div class="esteira" aria-hidden="true"></div>
 
 <!-- ================= 4. LINHA DO TEMPO (fica grudada no topo) ================= -->
-<section class="sticky z-40 bg-vintageCharcoal/95 backdrop-blur border-b border-vintageBorder py-4 px-4 shadow-2xl" style="top: calc(5rem + env(safe-area-inset-top, 0px))">
-  <div class="max-w-6xl mx-auto relative flex items-center justify-between" id="linhaTempo">
-    <div class="absolute left-0 right-0 top-5 h-1 bg-vintageBorder"></div>
-    <div id="progresso" class="absolute left-0 top-5 h-1 bg-vintageGold transition-all duration-500" style="width:0%"></div>
+<section class="sticky z-40 bg-vintageCharcoal/95 backdrop-blur border-b border-vintageBorder py-2.5 px-4 shadow-2xl" style="top: calc(4rem + env(safe-area-inset-top, 0px))">
+  <div class="max-w-xl mx-auto relative flex items-center justify-between" id="linhaTempo">
+    <div class="absolute left-4 right-4 top-5 h-1 bg-vintageBorder"></div>
+    <div id="progresso" class="absolute left-4 top-5 h-1 bg-vintageGold transition-all duration-500" style="width:0%"></div>
   </div>
 </section>
 
 <!-- ================= 5. AS QUATRO ERAS (os cartões são criados pelo JavaScript lá embaixo) ================= -->
-<main id="eras" class="max-w-5xl mx-auto px-4 py-12 space-y-12"></main>
+<main id="eras" class="max-w-xl mx-auto px-3 py-8 space-y-8"></main>
 
 <footer class="border-t border-vintageBorder py-8 text-center text-xs text-vintageSand px-4">
   <p class="font-cinzel text-vintageGold tracking-widest">MUNDO SENAI - 2026 · TURMA EMIIPT2AM</p>
-  <p class="mt-2">Conteúdo informativo sobre a história da organização do trabalho. O “vibe check” é uma avaliação simplificada, só para comparar os modelos.</p>
+  <p class="mt-2 leading-relaxed">Conteúdo informativo sobre a história da organização do trabalho. O “vibe check” é uma avaliação simplificada, só para comparar os modelos.</p>
 </footer>
 
 <script>
@@ -171,23 +167,20 @@ const eras = [
   }
 ];
 
-/* ========== 7. MENU, FAIXA DE DATAS E LINHA DO TEMPO ========== */
-const linkMenu = "px-3 py-2 rounded text-vintageSand hover:text-vintageCream hover:bg-vintageOlive transition";
-document.getElementById("menuPc").innerHTML = eras.map(e => `<a href="#${e.id}" class="${linkMenu}">${e.nome}</a>`).join("");
+/* ========== 7. LISTA DO MENU, FAIXA DE DATAS E LINHA DO TEMPO ========== */
 document.getElementById("menuCelular").innerHTML = eras.map(e =>
-  `<a href="#${e.id}" class="mobile-link block py-3 border-b border-vintageBorder/40 text-vintageSand">${e.curto} | ${e.nome}</a>`).join("");
+  `<a href="#${e.id}" class="mobile-link block py-3.5 border-b border-vintageBorder/40 text-vintageSand active:text-vintageCream">${e.curto} | ${e.nome}</a>`).join("");
 
 document.getElementById("faixaDatas").innerHTML = eras.map(e => `
-  <a href="#${e.id}" class="p-3 text-center hover:bg-vintageOlive/60 rounded transition">
-    <span class="block text-2xl md:text-3xl font-cinzel font-bold" style="color:${e.cor}">${e.curto}</span>
+  <a href="#${e.id}" class="p-3 text-center active:bg-vintageOlive/60 rounded transition">
+    <span class="block text-2xl font-cinzel font-bold" style="color:${e.cor}">${e.curto}</span>
     <span class="text-[11px] text-vintageSand uppercase font-medium">${e.nome}</span>
   </a>`).join("");
 
 document.getElementById("linhaTempo").insertAdjacentHTML("beforeend", eras.map(e => `
   <a href="#${e.id}" class="no relative z-10 flex flex-col items-center">
-    <div class="circulo w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-vintageDark border-2 flex items-center justify-center text-lg transition">${e.emoji}</div>
-    <span class="text-[10px] sm:text-xs font-cinzel font-semibold mt-2 text-vintageCream">${e.nome}</span>
-    <span class="text-[9px] text-vintageSand hidden sm:block">${e.ano}</span>
+    <div class="circulo w-10 h-10 rounded-full bg-vintageDark border-2 flex items-center justify-center text-lg transition">${e.emoji}</div>
+    <span class="text-[10px] font-cinzel font-semibold mt-1.5 text-vintageCream">${e.nome}</span>
   </a>`).join(""));
 
 /* ========== 8. CARTÕES DAS ERAS ========== */
@@ -201,22 +194,22 @@ function medidor(nome, nota) {
 }
 
 document.getElementById("eras").innerHTML = eras.map(e => `
-  <section id="${e.id}" class="scroll-mt-44 bg-vintageCard rounded-2xl border border-vintageBorder overflow-hidden shadow-2xl" style="--cor:${e.cor}; border-top: 6px solid ${e.cor}">
-    <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <section id="${e.id}" class="scroll-mt-40 bg-vintageCard rounded-2xl border border-vintageBorder overflow-hidden shadow-2xl" style="--cor:${e.cor}; border-top: 6px solid ${e.cor}">
+    <div class="p-5 space-y-6">
 
-      <div class="lg:col-span-7">
+      <div>
         <span class="inline-block px-3 py-1 bg-vintageDark/90 border text-[10px] font-cinzel font-bold uppercase tracking-widest rounded" style="color:${e.cor}; border-color:${e.cor}">${e.ano}</span>
-        <div class="text-5xl mt-4">${e.emoji}</div>
-        <h2 class="font-serif text-4xl font-bold text-vintageCream mt-2">${e.nome}</h2>
-        <p class="font-cinzel text-xl mt-1" style="color:${e.cor}">${e.apelido}</p>
+        <div class="text-4xl mt-3">${e.emoji}</div>
+        <h2 class="font-serif text-3xl font-bold text-vintageCream mt-1">${e.nome}</h2>
+        <p class="font-cinzel text-lg mt-1 leading-snug" style="color:${e.cor}">${e.apelido}</p>
 
-        <h3 class="text-sm font-bold mt-6 mb-2" style="color:${e.cor}">Em 15 segundos</h3>
-        <ul class="list-disc pl-5 space-y-1.5 text-vintageSand">${e.resumo.map(r => `<li>${r}</li>`).join("")}</ul>
+        <h3 class="text-sm font-bold mt-5 mb-2" style="color:${e.cor}">Em 15 segundos</h3>
+        <ul class="list-disc pl-5 space-y-2 text-vintageSand leading-relaxed">${e.resumo.map(r => `<li>${r}</li>`).join("")}</ul>
 
-        <p class="mt-5 p-4 rounded-lg bg-vintageDark/70 border border-vintageBorder text-sm text-vintageCream">${e.analogia}</p>
+        <p class="mt-4 p-4 rounded-lg bg-vintageDark/70 border border-vintageBorder text-sm text-vintageCream leading-relaxed">${e.analogia}</p>
       </div>
 
-      <aside class="lg:col-span-5 space-y-5">
+      <div class="space-y-4">
         <div class="p-4 rounded-lg bg-vintageDark/70 border border-vintageBorder space-y-2.5">
           <h3 class="font-cinzel text-sm font-bold text-vintageCream">Vibe check</h3>
           ${medidor("Liberdade", e.vibe[0])}${medidor("Segurança", e.vibe[1])}${medidor("Controle", e.vibe[2])}
@@ -224,11 +217,11 @@ document.getElementById("eras").innerHTML = eras.map(e => `
         <div class="flex flex-wrap gap-2">
           ${e.tags.map(t => `<span class="px-2.5 py-1 bg-vintageOlive text-[11px] text-vintageCream rounded border border-vintageBorder">${t}</span>`).join("")}
         </div>
-        <details class="border-t border-vintageBorder/60 pt-3">
-          <summary class="font-bold text-sm" style="color:${e.cor}"><span class="mais">＋ Quer saber mais?</span><span class="menos">－ Fechar</span></summary>
-          <p class="mt-3 text-sm text-vintageSand leading-relaxed">${e.mais}</p>
+        <details class="border-t border-vintageBorder/60 pt-1">
+          <summary class="py-3 font-bold text-sm" style="color:${e.cor}"><span class="mais">＋ Quer saber mais?</span><span class="menos">－ Fechar</span></summary>
+          <p class="pb-2 text-sm text-vintageSand leading-relaxed">${e.mais}</p>
         </details>
-      </aside>
+      </div>
 
     </div>
   </section>`).join("");
@@ -249,7 +242,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   }, 2000);
 }
 
-// 9b) menu do celular abre e fecha
+// 9b) lista do menu abre e fecha
 const botaoMenu = document.getElementById("botaoMenu");
 const menuCelular = document.getElementById("menuCelular");
 botaoMenu.onclick = () => {
@@ -265,7 +258,7 @@ const progresso = document.getElementById("progresso");
 function atualizarLinhaDoTempo() {
   let ativo = -1;
   secoes.forEach((s, i) => { if (window.scrollY + 300 >= s.offsetTop) ativo = i; });
-  progresso.style.width = (ativo < 0 ? 0 : (ativo / (eras.length - 1)) * 100) + "%";
+  progresso.style.width = (ativo < 0 ? "0px" : "calc(" + (ativo / (eras.length - 1)) + " * (100% - 2rem))");
   nos.forEach((n, i) => n.classList.toggle("ativo", i <= ativo));
 }
 window.addEventListener("scroll", atualizarLinhaDoTempo);
