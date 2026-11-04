@@ -74,7 +74,7 @@ aside {
     z-index: 900;
 } 
 /* Estilo para a página que está aberta */
-nav a.ativo {
+.ativo {
   background-color: #007bff;
   color: #ffffff;
   font-weight: bold;
