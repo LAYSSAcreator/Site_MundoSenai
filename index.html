@@ -117,13 +117,17 @@ section[id] { scroll-margin-top: 20px; }
 main { flex: 1; min-width: 0; }
 .conteudo { max-width: 980px; margin: 0 auto; padding: 48px 28px 64px; }
 
-/* ===== CARROSSEL ===== */
+/* ===== CARROSSEL RETANGULAR ARREDONDADO (FORMATO DE ANÚNCIO) ===== */
 .carrossel {
     position: relative;
     overflow: hidden;
-    height: 380px;
+    width: 100%;
+    height: 320px;
+    margin-bottom: 36px;
     background: var(--card);
-    border-bottom: 2px solid var(--borda);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .6);
 }
 .slides { display: flex; height: 100%; transition: transform .7s ease; }
 .slide-bg {
@@ -132,7 +136,7 @@ main { flex: 1; min-width: 0; }
     height: 100%;
     display: flex;
     align-items: flex-end;
-    padding: 40px 64px 56px;
+    padding: 32px 48px;
     background-size: cover;
     background-position: center;
     color: var(--cream);
@@ -150,24 +154,23 @@ main { flex: 1; min-width: 0; }
 .slide-fases  { background-color: #1a1c18; background-image: url('img/56-Fases-do-Taylorismo.webp'); }
 .slide-ford   { background-color: #1a1c18; background-image: url('img/fordismo-banner.jpg'); }
 .slide-toyota { background-color: #1a1c18; background-image: url('img/toyotismo-banner.jpg'); }
-.slide-uber   { background-color: #1a1c18; background-image: url('img/uberizacao-banner.jpg'); }
 
-.slide-texto { position: relative; z-index: 1; max-width: 580px; }
-.slide-texto h2 { font-size: 2.4rem; color: var(--cream); margin-bottom: 8px; }
-.slide-texto p { color: var(--sand); font-size: 1.15rem; font-weight: 600; }
+.slide-texto { position: relative; z-index: 1; max-width: 600px; }
+.slide-texto h2 { font-size: 2.1rem; color: var(--cream); margin-bottom: 6px; }
+.slide-texto p { color: var(--sand); font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 .seta {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     border: 2px solid var(--gold);
     border-radius: 50%;
     background: rgba(26, 28, 24, .85);
     color: var(--gold);
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     transition: background .2s, color .2s;
 }
@@ -175,10 +178,10 @@ main { flex: 1; min-width: 0; }
 #btnAnterior { left: 16px; }
 #btnProximo { right: 16px; }
 
-.indicadores { position: absolute; z-index: 2; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+.indicadores { position: absolute; z-index: 2; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
 .indicador {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border: 2px solid var(--gold);
     border-radius: 50%;
     background: transparent;
@@ -260,11 +263,11 @@ main { flex: 1; min-width: 0; }
 @media (max-width: 768px) {
     .pagina { display: block; }
     .conteudo { padding: 32px 18px 48px; }
-    .carrossel { height: 280px; }
-    .slide-bg { padding: 24px 22px 50px; }
-    .slide-texto h2 { font-size: 1.55rem; }
-    .slide-texto p { font-size: 1rem; }
-    .seta { width: 40px; height: 40px; }
+    .carrossel { height: 220px; border-radius: 14px; margin-bottom: 28px; }
+    .slide-bg { padding: 20px 22px 36px; }
+    .slide-texto h2 { font-size: 1.4rem; }
+    .slide-texto p { font-size: .95rem; }
+    .seta { width: 36px; height: 36px; font-size: 16px; }
 
     /* sem JavaScript: menu empilhado normal */
     #topo { position: static; width: 100%; height: auto; border-right: 0; border-bottom: 2px solid var(--borda); padding: 20px; }
@@ -344,46 +347,40 @@ main { flex: 1; min-width: 0; }
 
         <main id="inicio">
 
-            <!-- CARROSSEL -->
-            <div class="carrossel" id="carrossel">
-                <div class="slides" id="slides">
-                    <div class="slide-bg slide-taylor">
-                        <div class="slide-texto">
-                            <h2>Taylorismo</h2>
-                            <p>Tempo cronometrado e divisão estrita do trabalho.</p>
-                        </div>
-                    </div>
-                    <div class="slide-bg slide-fases">
-                        <div class="slide-texto">
-                            <h2>Fases do Taylorismo</h2>
-                            <p>Como a administração científica foi aplicada passo a passo.</p>
-                        </div>
-                    </div>
-                    <div class="slide-bg slide-ford">
-                        <div class="slide-texto">
-                            <h2>Fordismo</h2>
-                            <p>Esteira de montagem e produção em massa.</p>
-                        </div>
-                    </div>
-                    <div class="slide-bg slide-toyota">
-                        <div class="slide-texto">
-                            <h2>Toyotismo</h2>
-                            <p>Produção enxuta, Just-In-Time e zero desperdício.</p>
-                        </div>
-                    </div>
-                    <div class="slide-bg slide-uber">
-                        <div class="slide-texto">
-                            <h2>Uberização</h2>
-                            <p>Trabalho sob demanda e gestão por algoritmos.</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="seta" id="btnAnterior" aria-label="Slide anterior">&#10094;</button>
-                <button class="seta" id="btnProximo" aria-label="Próximo slide">&#10095;</button>
-                <div class="indicadores" id="indicadores"></div>
-            </div>
-
             <div class="conteudo">
+
+                <!-- CARROSSEL EM BANNER RETANGULAR -->
+                <div class="carrossel" id="carrossel">
+                    <div class="slides" id="slides">
+                        <div class="slide-bg slide-taylor">
+                            <div class="slide-texto">
+                                <h2>Taylorismo</h2>
+                                <p>Tempo cronometrado e divisão estrita do trabalho.</p>
+                            </div>
+                        </div>
+                        <div class="slide-bg slide-fases">
+                            <div class="slide-texto">
+                                <h2>Fases do Taylorismo</h2>
+                                <p>Como a administração científica foi aplicada passo a passo.</p>
+                            </div>
+                        </div>
+                        <div class="slide-bg slide-ford">
+                            <div class="slide-texto">
+                                <h2>Fordismo</h2>
+                                <p>Esteira de montagem e produção em massa.</p>
+                            </div>
+                        </div>
+                        <div class="slide-bg slide-toyota">
+                            <div class="slide-texto">
+                                <h2>Toyotismo</h2>
+                                <p>Produção enxuta, Just-In-Time e zero desperdício.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="seta" id="btnAnterior" aria-label="Slide anterior">&#10094;</button>
+                    <button class="seta" id="btnProximo" aria-label="Próximo slide">&#10095;</button>
+                    <div class="indicadores" id="indicadores"></div>
+                </div>
 
                 <!-- FORMAÇÃO TÉCNICA -->
                 <section class="formacao" id="formacao">
