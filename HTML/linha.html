@@ -2,15 +2,15 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Mundo SENAI 2026 - A Evolução do Trabalho (EMIIPT2AM)</title>
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,14 @@
   </script>
 
   <style>
-    body { background-color: #0e0f0d; color: #f7f2e6; font-family: 'Inter', sans-serif; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      background-color: #0e0f0d; color: #f7f2e6; font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: rgba(229, 190, 83, 0.25);
+    }
+    img { max-width: 100%; }
+
     .sepia-overlay { position: relative; }
     .sepia-overlay::after {
       content: ''; position: absolute; inset: 0;
@@ -61,10 +68,13 @@
       pointer-events: none;
     }
 
-    /* Brilho e Animação da Linha do Tempo Tecnológica */
-    .tech-glow {
-      box-shadow: 0 0 15px rgba(229, 190, 83, 0.4);
-    }
+    /* Âncoras não ficam escondidas atrás do cabeçalho + linha do tempo (ambos fixos no topo) */
+    section[id] { scroll-margin-top: 170px; }
+    @media (min-width: 640px) { section[id] { scroll-margin-top: 200px; } }
+
+    /* Cabeçalho respeita a "orelha" do celular */
+    .topo-seguro { padding-top: env(safe-area-inset-top, 0px); }
+
     .tech-glow-active {
       box-shadow: 0 0 25px rgba(229, 190, 83, 0.85);
       border-color: #e5be53 !important;
@@ -77,28 +87,38 @@
       background-color: #bd3333 !important;
       color: #f7f2e6 !important;
     }
-    
+
     @keyframes pulse-border {
       0%, 100% { border-color: rgba(229, 190, 83, 0.3); }
       50% { border-color: rgba(229, 190, 83, 0.9); }
     }
-    .pulse-tech-card {
-      animation: pulse-border 3s infinite ease-in-out;
+    .pulse-tech-card { animation: pulse-border 3s infinite ease-in-out; }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid #e5be53; outline-offset: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-tech-card { animation: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
-<body class="selection:bg-vRust selection:text-vCream antialiased text-lg">
+<body id="top" class="selection:bg-vRust selection:text-vCream antialiased text-base sm:text-lg">
 
-  <!-- HEADER COMPACTO COM CRONÔMETRO DE APRESENTAÇÃO DE 2 MINUTOS -->
-  <header class="sticky top-0 z-50 bg-vDark/98 backdrop-blur-md border-b-2 border-vBorder shadow-2xl">
-    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="px-3 py-1.5 bg-vRust text-vCream text-sm sm:text-base font-extrabold tracking-wider rounded shadow-md">MUNDO SENAI 2026</span>
-        <span class="text-sm sm:text-base text-vGold font-mono font-bold hidden md:inline">TURMA: EMIIPT2AM</span>
+  <!-- CABEÇALHO: botão para voltar ao menu (página inicial) + navegação -->
+  <header class="topo-seguro sticky top-0 z-50 bg-vDark/95 backdrop-blur-md border-b-2 border-vBorder shadow-2xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 h-16 sm:h-20 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <!-- VOLTAR AO MENU = página inicial (index.html fica uma pasta acima de HTML/) -->
+        <a href="../index.html" class="shrink-0 px-3 py-2 min-h-[44px] bg-vCard hover:bg-vGold hover:text-vDark border-2 border-vGold text-vGold transition rounded-lg flex items-center gap-2 text-sm font-extrabold" title="Voltar ao menu inicial" aria-label="Voltar ao menu inicial">
+          <i class="fa-solid fa-house"></i>
+          <span>Menu<span class="hidden sm:inline"> inicial</span></span>
+        </a>
+        <span class="truncate px-2.5 sm:px-3 py-1.5 bg-vRust text-vCream text-xs sm:text-base font-extrabold tracking-wider rounded shadow-md">MUNDO SENAI 2026</span>
+        <span class="text-base text-vGold font-mono font-bold hidden xl:inline">TURMA: EMIIPT2AM</span>
       </div>
 
-
-      <nav class="flex space-x-1 sm:space-x-3 text-sm sm:text-base font-extrabold">
+      <!-- Atalhos: só em telas grandes (no celular a linha do tempo já faz esse papel) -->
+      <nav class="hidden lg:flex space-x-3 text-base font-extrabold" aria-label="Atalhos da página">
         <a href="#taylorismo" class="px-3 py-2 rounded hover:bg-vCard text-vSand hover:text-vGold transition">Taylorismo</a>
         <a href="#fordismo" class="px-3 py-2 rounded hover:bg-vCard text-vSand hover:text-vGold transition">Fordismo</a>
         <a href="#toyotismo" class="px-3 py-2 rounded hover:bg-vCard text-vSand hover:text-vGold transition">Toyotismo</a>
@@ -108,65 +128,60 @@
     </div>
   </header>
 
-  <!-- HERO BANNER COM TÍTULO E SÍNTESE -->
-  <section class="py-12 px-4 text-center border-b-2 border-vBorder bg-gradient-to-b from-vDark via-vCard to-vDark">
-    <div class="max-w-5xl mx-auto space-y-5">
-      <span class="inline-block px-4 py-1.5 rounded-full bg-vGold/10 border border-vGold text-vGold text-base sm:text-lg font-cinzel font-black tracking-widest uppercase shadow-lg">
-        <i class="fa-solid fa-microchip mr-2"></i> Taylorismo - Fordismo - Toyotismo - Uberização
+  <!-- HERO -->
+  <section class="py-8 sm:py-12 px-4 text-center border-b-2 border-vBorder bg-gradient-to-b from-vDark via-vCard to-vDark">
+    <div class="max-w-5xl mx-auto space-y-4 sm:space-y-5">
+      <span class="inline-block px-3 sm:px-4 py-1.5 rounded-full bg-vGold/10 border border-vGold text-vGold text-xs sm:text-lg font-cinzel font-black tracking-wider sm:tracking-widest uppercase shadow-lg">
+        <i class="fa-solid fa-microchip mr-1 sm:mr-2"></i> Taylorismo - Fordismo - Toyotismo - Uberização
       </span>
-      
-      <h1 class="font-cinzel text-4xl sm:text-6xl font-black text-vCream leading-tight">
+
+      <h1 class="font-cinzel text-3xl sm:text-6xl font-black text-vCream leading-tight">
         A Evolução dos Modelos de Produção
       </h1>
-      
-      <p class="text-vSand text-lg sm:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
+
+      <p class="text-vSand text-base sm:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
         Do cronômetro mecânico aos algoritmos digitais: como a organização do trabalho redefiniu a indústria.
       </p>
     </div>
   </section>
 
-  <!-- LINHA DO TEMPO TECNOLÓGICA INTERATIVA (TECNOLÓGICA, DINÂMICA E SENSÍVEL AO SCROLL) -->
-  <section class="sticky top-20 z-40 bg-vDark/95 backdrop-blur-md border-y-2 border-vBorder py-6 px-4 shadow-2xl">
-    <div class="max-w-5xl mx-auto">
+  <!-- LINHA DO TEMPO INTERATIVA (gruda embaixo do cabeçalho) -->
+  <section class="sticky top-16 sm:top-20 z-40 bg-vDark/95 backdrop-blur-md border-y-2 border-vBorder py-3 sm:py-6 px-3 sm:px-4 shadow-2xl" style="top: var(--h-topo, 4rem);">
+    <div class="max-w-3xl mx-auto">
       <div class="relative flex items-center justify-between">
-        
-        <!-- TRILHO CONECTAR ILUMINADO -->
-        <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-vCard border-y border-vBorder -z-10"></div>
-        <div id="techProgress" class="absolute left-0 top-1/2 -translate-y-1/2 h-1.5 bg-vGold transition-all duration-500 shadow-[0_0_12px_rgba(229,190,83,0.8)] -z-10" style="width: 0%;"></div>
 
-        <!-- NÓ 1: TAYLORISMO -->
-        <a href="#taylorismo" id="node-taylorismo" class="tech-node flex flex-col items-center group transition-all" data-target="taylorismo">
-          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-vDark border-2 border-vGold text-vGold flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
+        <div class="absolute left-0 right-0 top-6 sm:top-7 -translate-y-1/2 h-1.5 bg-vCard border-y border-vBorder -z-10"></div>
+        <div id="techProgress" class="absolute left-0 top-6 sm:top-7 -translate-y-1/2 h-1.5 bg-vGold transition-all duration-500 shadow-[0_0_12px_rgba(229,190,83,0.8)] -z-10" style="width: 0%;"></div>
+
+        <a href="#taylorismo" id="node-taylorismo" class="tech-node flex flex-col items-center group transition-all">
+          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-vGold text-vGold flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
             <i class="fa-solid fa-stopwatch"></i>
           </div>
-          <span class="text-xs sm:text-base font-cinzel font-black mt-2 text-vCream group-hover:text-vGold">Taylorismo</span>
+          <span class="text-[11px] sm:text-base font-cinzel font-black mt-1.5 sm:mt-2 text-vCream group-hover:text-vGold">Taylorismo</span>
           <span class="text-xs text-vSand font-mono font-bold hidden sm:block">1890</span>
         </a>
 
-        <!-- NÓ 2: FORDISMO -->
-        <a href="#fordismo" id="node-fordismo" class="tech-node flex flex-col items-center group transition-all" data-target="fordismo">
-          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-vDark border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
+        <a href="#fordismo" id="node-fordismo" class="tech-node flex flex-col items-center group transition-all">
+          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
             <i class="fa-solid fa-industry"></i>
           </div>
-          <span class="text-xs sm:text-base font-cinzel font-black mt-2 text-vSand group-hover:text-vGold">Fordismo</span>
+          <span class="text-[11px] sm:text-base font-cinzel font-black mt-1.5 sm:mt-2 text-vSand group-hover:text-vGold">Fordismo</span>
           <span class="text-xs text-vSand font-mono font-bold hidden sm:block">1910</span>
         </a>
 
-        <!-- NÓ 3: TOYOTISMO -->
-        <a href="#toyotismo" id="node-toyotismo" class="tech-node flex flex-col items-center group transition-all" data-target="toyotismo">
-          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-vDark border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
+        <a href="#toyotismo" id="node-toyotismo" class="tech-node flex flex-col items-center group transition-all">
+          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
             <i class="fa-solid fa-robot"></i>
           </div>
-          <span class="text-xs sm:text-base font-cinzel font-black mt-2 text-vSand group-hover:text-vGold">Toyotismo</span>
+          <span class="text-[11px] sm:text-base font-cinzel font-black mt-1.5 sm:mt-2 text-vSand group-hover:text-vGold">Toyotismo</span>
           <span class="text-xs text-vSand font-mono font-bold hidden sm:block">1970</span>
         </a>
 
-        <!-- NÓ 4: UBERIZAÇÃO -->
-        <a href="#uberizacao" id="node-uberizacao" class="tech-node flex flex-col items-center group transition-all" data-target="uberizacao">
-          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-vDark border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
+        <a href="#uberizacao" id="node-uberizacao" class="tech-node flex flex-col items-center group transition-all">
+          <div class="node-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-vBorder text-vSand flex items-center justify-center text-lg sm:text-xl font-extrabold group-hover:scale-110 transition-all shadow-xl bg-vCard">
             <i class="fa-solid fa-mobile-screen-button"></i>
           </div>
-          <span class="text-xs sm:text-base font-cinzel font-black mt-2 text-vSand group-hover:text-vRust">Uberização</span>
+          <span class="text-[11px] sm:text-base font-cinzel font-black mt-1.5 sm:mt-2 text-vSand group-hover:text-vRust">Uberização</span>
           <span class="text-xs text-vSand font-mono font-bold hidden sm:block">Hoje</span>
         </a>
 
@@ -174,21 +189,21 @@
     </div>
   </section>
 
-  <!-- CARDS DOS MODELOS COM FONTES MAXIMIZADAS E BORDA TECNOLÓGICA -->
-  <main class="max-w-6xl mx-auto px-4 py-12 space-y-20">
+  <!-- CARDS DOS MODELOS -->
+  <main class="max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-12 space-y-10 sm:space-y-20">
 
     <!-- 1. TAYLORISMO -->
-    <section id="taylorismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl transition-all duration-300">
+    <section id="taylorismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl">
       <div class="grid grid-cols-1 md:grid-cols-12 items-stretch">
-        <div class="md:col-span-5 relative sepia-overlay h-64 md:h-auto">
-          <img src="img/images.jpeg" alt="Taylorismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Taylorismo')">
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1890 - 1910</span>
+        <div class="md:col-span-5 relative sepia-overlay h-52 sm:h-64 md:h-auto">
+          <img src="images.jpeg" alt="Taylorismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Taylorismo')">
+          <span class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1890 - 1910</span>
         </div>
-        <div class="md:col-span-7 p-6 sm:p-8 space-y-5">
+        <div class="md:col-span-7 p-5 sm:p-8 space-y-4 sm:space-y-5">
           <div class="flex items-center gap-2 text-vGold text-sm sm:text-base font-extrabold uppercase tracking-wider">
             <i class="fa-solid fa-stopwatch text-lg"></i> Administração Científica
           </div>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-vCream">TAYLORISMO</h2>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-black text-vCream">TAYLORISMO</h2>
           <p class="text-base sm:text-lg text-vSand font-medium">Foco na máxima eficiência operacional com medição exata do tempo e divisão estrita do trabalho.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
@@ -214,17 +229,17 @@
     </section>
 
     <!-- 2. FORDISMO -->
-    <section id="fordismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl transition-all duration-300">
+    <section id="fordismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl">
       <div class="grid grid-cols-1 md:grid-cols-12 items-stretch">
-        <div class="md:col-span-5 relative sepia-overlay h-64 md:h-auto md:order-last">
-          <img src="img/fordismo-o-que-e-como-surgiu-e-quais-sao-as-caracteristicas-1-1200x720.jpg" alt="Fordismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Fordismo')">
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1910 - 1970</span>
+        <div class="md:col-span-5 relative sepia-overlay h-52 sm:h-64 md:h-auto md:order-last">
+          <img src="fordismo-o-que-e-como-surgiu-e-quais-sao-as-caracteristicas-1-1200x720.jpg" alt="Fordismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Fordismo')">
+          <span class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1910 - 1970</span>
         </div>
-        <div class="md:col-span-7 p-6 sm:p-8 space-y-5">
+        <div class="md:col-span-7 p-5 sm:p-8 space-y-4 sm:space-y-5">
           <div class="flex items-center gap-2 text-vGold text-sm sm:text-base font-extrabold uppercase tracking-wider">
             <i class="fa-solid fa-industry text-lg"></i> Produção em Massa
           </div>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-vCream">FORDISMO</h2>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-black text-vCream">FORDISMO</h2>
           <p class="text-base sm:text-lg text-vSand font-medium">Introdução da esteira mecanizada e produção em larga escala de produtos totalmente padronizados.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
@@ -250,17 +265,17 @@
     </section>
 
     <!-- 3. TOYOTISMO -->
-    <section id="toyotismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl transition-all duration-300">
+    <section id="toyotismo" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl">
       <div class="grid grid-cols-1 md:grid-cols-12 items-stretch">
-        <div class="md:col-span-5 relative sepia-overlay h-64 md:h-auto">
-          <img src="img/o-que-e-toyotismo-caracteristicas-e-origem-1200x675.jpg" alt="Toyotismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Toyotismo')">
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1970 - 2000s</span>
+        <div class="md:col-span-5 relative sepia-overlay h-52 sm:h-64 md:h-auto">
+          <img src="o-que-e-toyotismo-caracteristicas-e-origem-1200x675.jpg" alt="Toyotismo" class="w-full h-full object-cover" onerror="handleImgError(this, 'Toyotismo')">
+          <span class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 px-3 py-1.5 bg-vDark/95 text-vGold font-cinzel text-sm sm:text-base font-black rounded border-2 border-vGold">1970 - 2000s</span>
         </div>
-        <div class="md:col-span-7 p-6 sm:p-8 space-y-5">
+        <div class="md:col-span-7 p-5 sm:p-8 space-y-4 sm:space-y-5">
           <div class="flex items-center gap-2 text-vGold text-sm sm:text-base font-extrabold uppercase tracking-wider">
             <i class="fa-solid fa-robot text-lg"></i> Acumulação Flexível
           </div>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-vCream">TOYOTISMO</h2>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-black text-vCream">TOYOTISMO</h2>
           <p class="text-base sm:text-lg text-vSand font-medium">Produção enxuta puxada pela demanda, eliminação rigorosa de desperdícios e automação.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
@@ -286,17 +301,17 @@
     </section>
 
     <!-- 4. UBERIZAÇÃO -->
-    <section id="uberizacao" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl transition-all duration-300">
+    <section id="uberizacao" class="model-block bg-vCard rounded-2xl border-2 border-vBorder overflow-hidden shadow-2xl">
       <div class="grid grid-cols-1 md:grid-cols-12 items-stretch">
-        <div class="md:col-span-5 relative sepia-overlay h-64 md:h-auto md:order-last">
-          <img src="img/uberizacao.jpg" alt="Uberização" class="w-full h-full object-cover" onerror="handleImgError(this, 'Uberização do Trabalho')">
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-vRust text-vCream font-cinzel text-sm sm:text-base font-black rounded border-2 border-vCream">Século XXI</span>
+        <div class="md:col-span-5 relative sepia-overlay h-52 sm:h-64 md:h-auto md:order-last">
+          <img src="uberização-uber-aplicativo-motorista-780x470.jpg" alt="Uberização" class="w-full h-full object-cover" onerror="handleImgError(this, 'Uberização do Trabalho')">
+          <span class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 px-3 py-1.5 bg-vRust text-vCream font-cinzel text-sm sm:text-base font-black rounded border-2 border-vCream">Século XXI</span>
         </div>
-        <div class="md:col-span-7 p-6 sm:p-8 space-y-5">
+        <div class="md:col-span-7 p-5 sm:p-8 space-y-4 sm:space-y-5">
           <div class="flex items-center gap-2 text-vRust text-sm sm:text-base font-extrabold uppercase tracking-wider">
             <i class="fa-solid fa-mobile-screen-button text-lg"></i> Gestão Algorítmica
           </div>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-vCream">UBERIZAÇÃO</h2>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-black text-vCream">UBERIZAÇÃO</h2>
           <p class="text-base sm:text-lg text-vSand font-medium">Trabalho sob demanda intermediado por plataformas digitais e decisões automatizadas.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
@@ -321,15 +336,16 @@
       </div>
     </section>
 
-    <!-- QUADRO COMPARATIVO AMPLIADO -->
-    <section id="comparador" class="bg-vCard p-6 sm:p-8 rounded-2xl border-2 border-vGold/50 shadow-2xl space-y-6 pulse-tech-card">
+    <!-- QUADRO COMPARATIVO -->
+    <section id="comparador" class="bg-vCard p-4 sm:p-8 rounded-2xl border-2 border-vGold/50 shadow-2xl space-y-5 sm:space-y-6 pulse-tech-card">
       <div class="text-center space-y-2">
-        <h3 class="font-cinzel text-2xl sm:text-3xl font-black text-vGold">Quadro Comparativo Rápido</h3>
-        <p class="text-base sm:text-lg text-vSand font-medium">Síntese visual perfeita para o encerramento da apresentação</p>
+        <h3 class="font-cinzel text-xl sm:text-3xl font-black text-vGold">Quadro Comparativo Rápido</h3>
+        <p class="text-sm sm:text-lg text-vSand font-medium">Síntese visual dos quatro modelos produtivos</p>
+        <p class="text-xs text-vSand/70 sm:hidden"><i class="fa-solid fa-arrows-left-right mr-1"></i> Deslize a tabela para o lado</p>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-base sm:text-lg border-collapse">
+      <div class="overflow-x-auto -mx-1 px-1">
+        <table class="w-full min-w-[560px] text-left text-sm sm:text-lg border-collapse">
           <thead>
             <tr class="border-b-2 border-vBorder text-vGold font-black font-cinzel">
               <th class="p-3 sm:p-4">Modelo</th>
@@ -338,7 +354,7 @@
               <th class="p-3 sm:p-4">Perfil do Trabalhador</th>
             </tr>
           </thead>
-          <tbody class="divide-y border-vBorder text-vCream font-medium">
+          <tbody class="divide-y divide-vBorder text-vCream font-medium">
             <tr class="hover:bg-vDark/60">
               <td class="p-3 sm:p-4 font-black text-vGold">Taylorismo</td>
               <td class="p-3 sm:p-4">Tempo e Tarefa</td>
@@ -368,96 +384,73 @@
       </div>
     </section>
 
+    <!-- BOTÃO GRANDE: voltar ao menu (fácil de tocar no fim da página) -->
+    <div class="text-center">
+      <a href="../index.html" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 min-h-[52px] bg-vRust hover:bg-transparent border-2 border-vRust hover:border-vGold text-vCream hover:text-vGold rounded-lg font-extrabold text-base sm:text-lg transition">
+        <i class="fa-solid fa-house"></i> Voltar ao menu inicial
+      </a>
+    </div>
+
   </main>
 
-  <!-- FOOTER VISÍVEL -->
-  <footer class="border-t-2 border-vBorder py-8 text-center text-sm sm:text-base text-vSand bg-vDark">
-    <p class="font-bold">Mundo SENAI 2026 — Turma: <strong class="text-vGold font-mono text-lg">EMIIPT2AM</strong></p>
-    <p class="text-xs sm:text-sm text-vSand/80 mt-1">A Evolução dos Modelos de Produção • Apresentação Técnica de 2 Minutos</p>
+  <!-- BOTÃO FLUTUANTE DE VOLTAR AO TOPO -->
+  <a href="#top" id="btnBackToTop" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-vCard border-2 border-vGold text-vGold rounded-full shadow-2xl hover:bg-vGold hover:text-vDark transition-all duration-300 opacity-0 pointer-events-none flex items-center justify-center group" title="Voltar ao topo" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up text-xl group-hover:-translate-y-1 transition-transform"></i>
+  </a>
+
+  <!-- RODAPÉ -->
+  <footer class="border-t-2 border-vBorder py-8 px-4 text-center text-sm sm:text-base text-vSand bg-vDark">
+    <p class="font-bold">Mundo SENAI 2026 — Turma: <strong class="text-vGold font-mono text-base sm:text-lg">EMIIPT2AM</strong></p>
+    <p class="text-xs sm:text-sm text-vSand/80 mt-1">A Evolução dos Modelos de Produção</p>
   </footer>
 
-  <!-- SCRIPT DE CRONÔMETRO DE PITCH E INTEGRAÇÃO DE ROLAGEM DA LINHA DO TEMPO TECNOLÓGICA -->
   <script>
-    // 1. LÓGICA DO CRONÔMETRO DE APRESENTAÇÃO (2 MINUTOS)
-    let timeLeft = 120; // 2 minutos em segundos
-    let timerInterval = null;
-    let isRunning = false;
-
-    function togglePitchTimer() {
-      const btn = document.getElementById('timerBtn');
-      if (isRunning) {
-        clearInterval(timerInterval);
-        isRunning = false;
-        btn.innerHTML = '<i class="fa-solid fa-play"></i>';
-      } else {
-        isRunning = true;
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        timerInterval = setInterval(() => {
-          if (timeLeft > 0) {
-            timeLeft--;
-            updateTimerDisplay();
-          } else {
-            clearInterval(timerInterval);
-            isRunning = false;
-            document.getElementById('pitchTimer').classList.add('text-vRust', 'animate-bounce');
-            btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
-          }
-        }, 1000);
+    // Cabeçalho tem 4rem no celular e 5rem no computador: a linha do tempo grudada embaixo usa essa altura
+    (function ajustarAltura() {
+      const raiz = document.documentElement;
+      const cab = document.querySelector('header');
+      function medir() {
+        raiz.style.setProperty('--h-topo', cab.getBoundingClientRect().height + 'px');
       }
-    }
+      medir();
+      window.addEventListener('resize', medir);
+      window.addEventListener('load', medir);
+    })();
 
-    function updateTimerDisplay() {
-      const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-      const secs = (timeLeft % 60).toString().padStart(2, '0');
-      document.getElementById('pitchTimer').textContent = `${mins}:${secs}`;
-    }
-
-    // 2. SCROLL-SPY TECNOLÓGICO PARA ILUMINAR OS NÓS DA LINHA DO TEMPO AUTOMATICAMENTE
+    // Acende o nó da linha do tempo conforme a rolagem
     const models = ['taylorismo', 'fordismo', 'toyotismo', 'uberizacao'];
-    const progressMap = {
-      'taylorismo': '0%',
-      'fordismo': '33%',
-      'toyotismo': '66%',
-      'uberizacao': '100%'
-    };
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -50% 0px',
-      threshold: 0.1
-    };
+    const progressMap = { taylorismo: '0%', fordismo: '33%', toyotismo: '66%', uberizacao: '100%' };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const modelId = entry.target.id;
-          
-          // Atualiza barra de progresso tecnológica
-          document.getElementById('techProgress').style.width = progressMap[modelId];
+        if (!entry.isIntersecting) return;
+        const modelId = entry.target.id;
+        document.getElementById('techProgress').style.width = progressMap[modelId];
 
-          // Destaque visual do nó na linha do tempo
-          models.forEach(m => {
-            const nodeCircle = document.querySelector(`#node-${m} .node-circle`);
-            if (nodeCircle) {
-              if (m === modelId) {
-                if (m === 'uberizacao') {
-                  nodeCircle.classList.add('tech-glow-rust-active');
-                } else {
-                  nodeCircle.classList.add('tech-glow-active');
-                }
-              } else {
-                nodeCircle.classList.remove('tech-glow-active', 'tech-glow-rust-active');
-              }
-            }
-          });
-        }
+        models.forEach(m => {
+          const circle = document.querySelector(`#node-${m} .node-circle`);
+          if (!circle) return;
+          circle.classList.remove('tech-glow-active', 'tech-glow-rust-active');
+          if (m === modelId) {
+            circle.classList.add(m === 'uberizacao' ? 'tech-glow-rust-active' : 'tech-glow-active');
+          }
+        });
       });
-    }, observerOptions);
+    }, { root: null, rootMargin: '-30% 0px -50% 0px', threshold: 0.1 });
 
     models.forEach(id => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
+
+    // Botão "voltar ao topo"
+    const btnBackToTop = document.getElementById('btnBackToTop');
+    window.addEventListener('scroll', () => {
+      const mostrar = window.scrollY > 300;
+      btnBackToTop.classList.toggle('opacity-0', !mostrar);
+      btnBackToTop.classList.toggle('pointer-events-none', !mostrar);
+      btnBackToTop.classList.toggle('opacity-100', mostrar);
+    }, { passive: true });
   </script>
 
 </body>
